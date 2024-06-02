@@ -21,5 +21,12 @@ namespace BookReaderApp
             CurrencyCode = currencyCode;
             Amount = 0;
         }
+
+        public Wallet(int userId, decimal amount, string currencyCode = "EUR")
+        {
+            UserId = userId;
+            CurrencyCode = currencyCode;
+            Amount = amount;
+        }
     }
 }

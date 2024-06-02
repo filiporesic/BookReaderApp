@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Npgsql;
-using MongoDB.Driver.Core.Configuration;
 using System.Windows.Forms;
 using System.Data;
 using System.Diagnostics;
@@ -26,6 +25,39 @@ namespace BookReaderApp
             NpgsqlDataReader reader = cmd.ExecuteReader();
 
             return reader;
+        }
+
+        public static void UpdateQuery(string query, string paramName, object paramValue)
+        {
+            connection.Open();
+            using (var cmd = new NpgsqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue(paramName, paramValue);
+                cmd.ExecuteNonQuery();
+            }
+            connection.Close();
+        }
+
+        public static void UpdateQuery(string query, string[] paramName, object[] paramValue)
+        {
+            connection.Open();
+            using (var cmd = new NpgsqlCommand(query, connection))
+            {
+                //Verify if the name's count equals the value's count
+                if (paramName.Count() != paramValue.Count())
+                {
+                    Debug.WriteLine("ParamName Count != ParamValue Count");
+                }
+
+                //Add params in the arrays
+                for (int i = 0; i < paramName.Count(); i++)
+                {
+                    cmd.Parameters.AddWithValue(paramName[i], paramValue[i]);
+                }
+
+                cmd.ExecuteNonQuery();
+            }
+            connection.Close();
         }
 
         /// <summary>

@@ -31,6 +31,7 @@ namespace BookReaderApp
 
             dataGridView1.DataSource = dt;
 
+           WalletService.WithdrawToBankAccount(1, 10);
         }
     }
 }
