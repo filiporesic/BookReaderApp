@@ -18,13 +18,26 @@ namespace BookReaderApp
 
         public Transaction() { }
 
-        public Transaction(int walletId, string title, decimal amount)
+        public Transaction(int transactionId, int walletId, int bookId, decimal amount)
         {
+            TransactionId = transactionId;
             WalletId = walletId;
-            Title = title;
+            BookId = bookId;
+            Title = BookService.GetBookTitle(bookId);
             Amount = amount;
             BorrowDate = DateTime.UtcNow;
             ReturnDate = DateTime.UtcNow.AddMonths(1);
+        }
+
+        public Transaction(int transactionId, int walletId, int bookId, decimal amount, DateTime borrowDate)
+        {
+            TransactionId = transactionId;
+            WalletId = walletId;
+            BookId = bookId;
+            Title = BookService.GetBookTitle(bookId);
+            Amount = amount;
+            BorrowDate = borrowDate;
+            ReturnDate = borrowDate.AddMonths(1);
         }
 
     }

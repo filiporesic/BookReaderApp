@@ -24,9 +24,9 @@ CREATE TABLE Wallets (
 
 CREATE TABLE Transactions (
     TransactionId SERIAL PRIMARY KEY,
-    UserId INT,
+    WalletId INT,
+    UserId INT, 
     BookId INT,
-    Title VARCHAR(50) NOT NULL,
     Amount  DECIMAL(10, 2) NOT NULL,
     BorrowDate DATE NOT NULL,
     ReturnDate DATE,
@@ -34,5 +34,16 @@ CREATE TABLE Transactions (
     FOREIGN KEY (BookId) REFERENCES Books(BookId)
 );
 
+
 INSERT INTO Users (UserId, Username, Email, PasswordHash) VALUES
 ('test', 'test@test.com', '1232')
+
+CREATE EXTENSION HSTORE;
+CREATE TABLE BookLocations (BookLocation hstore);
+
+INSERT INTO BookLocations VALUES ('1 => ".\\Books\\Meša Selimović - Derviš i smrt.pdf"')
+
+SELECT
+    BookLocation -> '1' AS Location
+FROM
+    BookLocations;

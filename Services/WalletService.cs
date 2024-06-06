@@ -11,7 +11,7 @@ namespace BookReaderApp
     {
         public static Wallet GetWallet(int userId)
         {
-            string query = "SELECT * FROM Wallets where userId = @userId";
+            string query = "SELECT userId, amount FROM Wallets where userId = @userId";
 
             string name = "userId";
             object value = userId;
@@ -58,7 +58,7 @@ namespace BookReaderApp
         {
             List<BookOwnership> books = new List<BookOwnership>();
 
-            string query = "SELECT userId, bookName, dateBorrowed FROM BookOwnership where userId = @userId";
+            string query = "SELECT userId, bookId, dateBorrowed FROM BookOwnership where userId = @userId";
 
             string name = "userId";
             object value = userId;
@@ -66,8 +66,8 @@ namespace BookReaderApp
 
             foreach(DataRow row in dt.Rows)
             {
-                books.Add(new BookOwnership((int)row["userId"], 
-                          row["bookName"].ToString(), (DateTime)row["dateBorrowed"]));
+                books.Add(new BookOwnership((int)row["userId"],
+                          (int)row["bookId"], (DateTime)row["dateBorrowed"]));
             }
 
             return books;
@@ -77,9 +77,9 @@ namespace BookReaderApp
         {
             List<BookOwnership> books = new List<BookOwnership>();
 
-            string query = "SELECT userId, bookName, dateBorrowed FROM BookOwnership where userId = @userId" +
-                "WHERE (DATE(dateBorrowed) > LAST_DAY(CURDATE() - INTERVAL 1 MONTH) AND dateBorrowed < (CURDATE() + INTERVAL 12 HOUR)) " +
-                "OR (DATE(dateBorrowed) = LAST_DAY(CURDATE() - INTERVAL 1 MONTH) AND HOUR(dateBorrowed) >= 13)";
+            string query = "SELECT userId, bookName, BorrowDate FROM BookOwnership where userId = @userId" +
+                "WHERE (DATE(BorrowDate) > (CURDATE() - INTERVAL 1 MONTH) AND BorrowDate < (CURDATE() + INTERVAL 12 HOUR)) " +
+                "OR (DATE(BorrowDate) = (CURDATE() - INTERVAL 1 MONTH) AND HOUR(BorrowDate) >= 13)";
 
             string name = "userId";
             object value = userId;
@@ -88,11 +88,63 @@ namespace BookReaderApp
             foreach (DataRow row in dt.Rows)
             {
                 books.Add(new BookOwnership((int)row["userId"],
-                          row["bookName"].ToString(), (DateTime)row["dateBorrowed"]));
+                          (int)row["bookId"], (DateTime)row["BorrowDate"]));
             }
 
             return books;
         }
 
+        public static List<Transaction> GetTransactions(int walletId)
+        {
+            List<Transaction> transactions = new List<Transaction>();
+
+            string query = "SELECT transactionId, userId, bookId, amount, borrowDate, returnDate FROM Transactions where walletId = @walletId";
+
+            string name = "walletId";
+            object value = walletId;
+            var dt = DatabaseService.SelectData(query, name, value);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                transactions.Add(new Transaction((int)row["userId"], walletId,
+                          (int)row["bookId"], (decimal)row["amount"], (DateTime)row["borrowDate"]));
+            }
+
+            return transactions;
+        }
+
+        public static Dictionary<string, decimal> GetBooksWithPrices()
+        {
+            Dictionary<string, decimal> bookPricePairs = new Dictionary<string, decimal>();
+
+            string query = "SELECT price, title FROM Books";
+
+            var dt = DatabaseService.SelectData(query);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                bookPricePairs.Add((string)row["title"], (decimal)row["price"]);
+            }
+
+            return bookPricePairs;
+        }
+
+        public static Dictionary<int, Tuple<string, string>> GetBorrowedBooks(int userId)
+        {
+            Dictionary<int, Tuple<string, string>> books = new Dictionary<int, Tuple<string, string>>();
+
+            string query = "SELECT bookId FROM Transactions WHERE userId = @userId AND current_date < returnDate";
+
+            string name = "userId";
+            object value = userId;
+            var dt = DatabaseService.SelectData(query, name, value);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                books.Add((int)row["bookId"], BookService.GetBookTitleAndAuthor((int)row["bookId"]));
+            }
+
+            return books;
+        }
     }
 }
