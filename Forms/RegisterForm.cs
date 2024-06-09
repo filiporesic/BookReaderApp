@@ -17,7 +17,7 @@ namespace BookReaderApp
             string password1 = txtPassword1.Text;
             string password2 = txtPassword2.Text;
 
-            if(password1==password2)
+            if(password1==password2 && !GetUserByName(username))
             {
                 User newUser = new User(username, email, password);
                 UserService.CreateUser(newUser);
@@ -26,11 +26,14 @@ namespace BookReaderApp
                 loginForm.Show();
                 this.Close();
             }
-            else
+            if(password1!=password2)
             {
                 MessageBox.Show("Passwords do not match!");
             }
-            
+            if(GetUserByName(username))
+            {
+                MessageBox.Show("User already exists!");
+            }
         }
     }
 }
