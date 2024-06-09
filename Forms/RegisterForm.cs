@@ -14,16 +14,22 @@ namespace BookReaderApp
         {
             string username = txtUsername.Text;
             string email = txtEmail.Text;
-            string password = txtPassword.Text;
+            string password1 = txtPassword1.Text;
+            string password2 = txtPassword2.Text;
 
-            User newUser = new User(username, email, password);
-
-            UserService.CreateUser(newUser);
-            MessageBox.Show("Registration successful!");
-
-            LoginForm loginForm = new LoginForm();
-            loginForm.Show();
-            this.Hide();
+            if(password1==password2)
+            {
+                User newUser = new User(username, email, password);
+                UserService.CreateUser(newUser);
+                MessageBox.Show("Registration successful!");
+                LoginForm loginForm = new LoginForm();
+                loginForm.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Passwords do not match!");
+            }
             
         }
     }

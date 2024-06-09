@@ -19,6 +19,7 @@ namespace BookReaderApp
 
             if (VerifyPasswordHash(password, user.PasswordHash))
             {
+                UserId = user.UserId;
                 MessageBox.Show("Login successful!");
                 //sto dalje ide
             }
@@ -32,7 +33,13 @@ namespace BookReaderApp
         {
             RegisterForm RegisterForm = new RegisterForm();
             RegisterForm.Show();
-            this.Hide();
+            this.Close();
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            this.Close();
         }
     }
 }
