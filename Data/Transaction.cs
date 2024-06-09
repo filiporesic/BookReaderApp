@@ -40,5 +40,16 @@ namespace BookReaderApp
             ReturnDate = borrowDate.AddMonths(1);
         }
 
+        public Transaction(int transactionId, int walletId, int bookId, decimal amount, DateTime borrowDate, DateTime returnDate)
+        {
+            TransactionId = transactionId;
+            WalletId = walletId;
+            BookId = bookId;
+            Title = BookService.GetBookTitle(bookId);
+            Amount = amount;
+            BorrowDate = borrowDate;
+            ReturnDate = returnDate;
+        }
+
     }
 }

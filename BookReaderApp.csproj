@@ -219,7 +219,6 @@
       <DependentUpon>BookReaderAppDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Data\Book.cs" />
-    <Compile Include="Data\BookOwnership.cs" />
     <Compile Include="Data\Transaction.cs" />
     <Compile Include="Data\Wallet.cs" />
     <Compile Include="Data\User.cs" />
@@ -274,6 +273,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Aplikacija za posudbu i čitanje knjiga.docx" />
     <None Include="BookId1.pdf" />
     <None Include="BookReaderAppDataSet.xsc">
       <DependentUpon>BookReaderAppDataSet.xsd</DependentUpon>

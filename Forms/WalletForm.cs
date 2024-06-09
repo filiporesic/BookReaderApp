@@ -1,4 +1,5 @@
-﻿using BookReaderApp.Forms;
+﻿using Amazon.Runtime.Internal.Transform;
+using BookReaderApp.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,11 +7,13 @@ using System.Data;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using static MongoDB.Driver.WriteConcern;
 
 namespace BookReaderApp
 {
@@ -57,17 +60,7 @@ namespace BookReaderApp
         private void WalletForm_Load(object sender, EventArgs e)
         {
             decimal amount = WalletService.GetWallet(userId).Amount;
-            walletBalance.Text += amount.ToString();
-
-            /*var stocks = WalletService.GetAvailableStocksWithValues();
-
-            foreach(var stock in stocks)
-            {
-                string[] row = {stock.Key, stock.Value.ToString()};
-                buyComboBox.Items.Add(stock.Key);
-                buyStocksGridView.Rows.Add(row);
-            }*/
-          
+            walletBalance.Text = "Wallet balace: " + amount.ToString();
 
             List<Transaction> transactions = WalletService.GetTransactions(userId);
             
@@ -75,82 +68,48 @@ namespace BookReaderApp
             dataGridTransactions.Columns["WalletId"].Visible = false;
             dataGridTransactions.Columns["BookId"].Visible = false;
 
+            costLabel.Text = "Cost: 0";
+            availableBooksGridView.Rows.Clear();
+            
+
+            var allBooks = WalletService.GetBooks();
+
+            borrowBooksGridView.DataSource = allBooks;
+            borrowBooksGridView.Columns["BookId"].Visible = false;
+
             var borrowedBooks = WalletService.GetBorrowedBooks(userId);
-            foreach (var valuePair in borrowedBooks)
+            var uniqueBooks = new Dictionary<int, (int, string, string, int)>();
+
+            foreach (var book in borrowedBooks)
             {
-                object[] row = { valuePair.Key, valuePair.Value.Item1, valuePair.Value.Item2};
-                availableBooksGridView.Rows.Add(row);
+                var daysRemaining = WalletService.GetDaysRemaining(book.Item1, userId);
+
+                if (uniqueBooks.ContainsKey(book.Item1))
+                {
+                    if (uniqueBooks[book.Item1].Item4 < daysRemaining)
+                    {
+                        uniqueBooks[book.Item1] = (book.Item1, book.Item2, book.Item3, daysRemaining);
+                    }
+                }
+                else
+                {
+                    uniqueBooks.Add(book.Item1, (book.Item1, book.Item2, book.Item3, daysRemaining));
+                }
             }
 
+            foreach (var book in uniqueBooks.Values)
+            {
+                object[] row = { book.Item1, book.Item2, book.Item3, WalletService.GetDaysRemaining(book.Item1, userId), BookService.GetBookPrice(book.Item1) };
+                availableBooksGridView.Rows.Add(row);
+            }
 
             dataGridTransactions.ClearSelection();
             borrowBooksGridView.ClearSelection();
             availableBooksGridView.ClearSelection();
+
         }
 
-        private void BorrowComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            String book = borrowComboBox.Text;
-            var books = WalletService.GetBooksWithPrices();
-            try
-            {
-                decimal value = books[book];
-                costLabel.Text = "Cost: " + value.ToString();
-            }
-            catch
-            {
-                costLabel.Text = "Cost: 0";
-            }
-        }
-
-        private void BorrowButton_Click(object sender, EventArgs e)
-        {
-            /*decimal amount = buyAmountSelector.Value;
-            if (amount > 0)
-            {
-                String stock = borrowComboBox.Text;
-
-                bool successful = WalletService.BuyStock(userId, stock, amount);
-                if (successful)
-                {
-                    decimal walletAmount = WalletService.GetWallet(userId).Amount;
-                    walletBalance.Text = "Wallet balance: " + walletAmount.ToString();
-                    buyResultLabel.Text = "Stocks bought successfully.";
-                    sellStocksGridView.Rows.Clear();
-                    List<StockOwnership> sellStocks = WalletService.GetOwnedStocks(userId);
-                    var stocks = WalletService.GetAvailableStocksWithValues();
-                    sellComboBox.Items.Clear();
-
-                    foreach (StockOwnership s in sellStocks)
-                    {
-                        if(s.Quantity > 0)
-                        {
-                            decimal value = s.Quantity * stocks[s.StockSymbol];
-                            string[] row = { s.StockSymbol, s.Quantity.ToString(), stocks[s.StockSymbol].ToString(), value.ToString() };
-                            sellComboBox.Items.Add(s.StockSymbol);
-                            sellStocksGridView.Rows.Add(row);
-                        }
-                    }
-                    //poruku prikazujemo samo na nekoliko sekundi
-                    System.Timers.Timer timer = new System.Timers.Timer(2000);
-                    timer.Elapsed += (_, __) => buyResultLabel.Invoke((MethodInvoker)(() => buyResultLabel.Text = ""));
-                    timer.AutoReset = false;
-                    timer.Start();
-                    TransactionComboBox_SelectedIndexChanged(sender, e);
-                }
-                else
-                {
-                    //poruku prikazujemo samo na nekoliko sekundi
-                    buyResultLabel.Text = "Stocks not bought. Try again.";
-                    System.Timers.Timer timer = new System.Timers.Timer(2000);
-                    timer.Elapsed += (_, __) => buyResultLabel.Invoke((MethodInvoker)(() => buyResultLabel.Text = ""));
-                    timer.AutoReset = false;
-                    timer.Start();
-                }
-            }*/
-        }
-
-        private void depositButton_Click(object sender, EventArgs e)
+        private void DepositButton_Click(object sender, EventArgs e)
         {
             using(TransferForm transferForm = new TransferForm(userId))
             {
@@ -171,15 +130,6 @@ namespace BookReaderApp
             //Close();
         }
 
-        private void availableBooksGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-            {
-                var cellValue = ((DataGridView)sender).Rows[e.RowIndex].Cells[0].Value;
-                HandleCellClick(cellValue);
-            }
-        }
-
         private void HandleCellClick(object cellValue)
         {
             string filename = BookService.GetBookLocation((int)cellValue);
@@ -187,6 +137,120 @@ namespace BookReaderApp
             ReaderForm reader = new ReaderForm("..\\.." + filename);
 
             reader.ShowDialog();
+        }
+
+        private void ExtendButton_Click(object sender, EventArgs e)
+        {
+            int row;
+            decimal amount;
+            DateTime returnDate;
+            try
+            {
+                row = availableBooksGridView.SelectedCells[0].RowIndex;
+                amount = (decimal)availableBooksGridView.Rows[row].Cells[4].Value;
+            }
+            catch
+            {
+                string message = "Select a book to extend!";
+                MessageBox.Show(message);
+                return;
+            }
+
+            if(extendComboBox.SelectedIndex < 0)
+            {
+                string message = "Select a period to extend!";
+                MessageBox.Show(message);
+                return;
+            }
+
+            row = availableBooksGridView.SelectedCells[0].RowIndex;
+            amount = (decimal)availableBooksGridView.Rows[row].Cells[4].Value;
+            int bookId = (int)availableBooksGridView.Rows[row].Cells[0].Value;
+
+            if (extendComboBox.SelectedIndex == 0)
+            {
+                amount /= 6;
+                returnDate = DateTime.Now.Date.AddDays(5+WalletService.GetDaysRemaining(bookId, userId));
+            }
+            else if (extendComboBox.SelectedIndex == 1)
+            {
+                amount /= 2;
+                returnDate = DateTime.Now.Date.AddDays(15 + WalletService.GetDaysRemaining(bookId, userId));
+            }
+            else
+            {
+                returnDate = DateTime.Now.Date.AddDays(WalletService.GetDaysRemaining(bookId, userId));
+                returnDate = returnDate.AddMonths(1);
+            }
+
+            if (WalletService.GetWallet(userId).Amount >= amount)
+            {
+                WalletService.UpdateWallet(userId, WalletService.GetWallet(userId).Amount - amount);
+                WalletService.CreateTransaction(bookId, userId, WalletService.GetWallet(userId).WalletId, amount, returnDate);
+                WalletForm_Load(sender, e);
+            }
+            else
+            {
+                string message = "Not enough balance!";
+                MessageBox.Show(message);
+            }
+
+        }
+
+        private void ExtendComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int row = availableBooksGridView.SelectedCells[0].RowIndex;
+                decimal amount = (decimal)availableBooksGridView.Rows[row].Cells[4].Value;
+
+                if (extendComboBox.SelectedIndex == 0)
+                {
+                    amount /= 6;
+                }
+                if (extendComboBox.SelectedIndex == 1)
+                {
+                    amount /= 2;
+                }
+
+                extendCostLabel.Text = "Cost: " + amount.ToString();
+            }
+            catch { }
+        }
+
+        private void BorrowBooksGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                decimal price = (decimal)borrowBooksGridView.Rows[e.RowIndex].Cells[3].Value;
+                costLabel.Text = "Cost: " + price.ToString();
+            }
+        }
+
+        private void BorrowButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int row = borrowBooksGridView.SelectedCells[0].RowIndex;
+                decimal price = (decimal)borrowBooksGridView.Rows[row].Cells[3].Value;
+                int bookId = (int)borrowBooksGridView.Rows[row].Cells[0].Value;
+
+                var borrowBooks = WalletService.GetBorrowedBooks(userId);
+                foreach(var book in borrowBooks)
+                {
+                    if (book.Item1 == bookId)
+                        return;
+                }
+
+                if (WalletService.GetWallet(userId).Amount >= price)
+                {
+                    DateTime returnDate = DateTime.Now.Date.AddMonths(1);
+                    WalletService.UpdateWallet(userId, WalletService.GetWallet(userId).Amount - price);
+                    WalletService.CreateTransaction(bookId, userId, WalletService.GetWallet(userId).WalletId, price, returnDate);
+                    WalletForm_Load(sender, e);
+                }
+            }
+            catch { }
         }
     }
 

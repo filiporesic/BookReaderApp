@@ -15,15 +15,17 @@ namespace BookReaderApp
 
         public Wallet() { }
 
-        public Wallet(int userId, string currencyCode = "EUR")
+        public Wallet(int walletId, int userId, string currencyCode = "EUR")
         {
+            WalletId = walletId;
             UserId = userId;
             CurrencyCode = currencyCode;
             Amount = 0;
         }
 
-        public Wallet(int userId, decimal amount, string currencyCode = "EUR")
+        public Wallet(int walletId, int userId, decimal amount, string currencyCode = "EUR")
         {
+            WalletId = walletId;
             UserId = userId;
             CurrencyCode = currencyCode;
             Amount = amount;

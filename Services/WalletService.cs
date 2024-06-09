@@ -11,7 +11,7 @@ namespace BookReaderApp
     {
         public static Wallet GetWallet(int userId)
         {
-            string query = "SELECT userId, amount FROM Wallets where userId = @userId";
+            string query = "SELECT walletId, userId, amount FROM Wallets where userId = @userId";
 
             string name = "userId";
             object value = userId;
@@ -20,7 +20,7 @@ namespace BookReaderApp
             if(dt.Rows.Count > 0 )
             {
                 DataRow row = dt.Rows[0];
-                Wallet wallet = new Wallet((int)row["userId"], (decimal)row["amount"]);
+                Wallet wallet = new Wallet((int)row["walletId"], userId, (decimal)row["amount"]);
 
                 return wallet;
             }
@@ -37,7 +37,7 @@ namespace BookReaderApp
             string[] names = {"amount", "userId"};
             object[] values = {amount, userId};
 
-            DatabaseService.UpdateQuery(query, names, values);
+            DatabaseService.RunQuery(query, names, values);
         }
 
         public static void DepositToWallet(int userId, decimal amount)
@@ -47,53 +47,20 @@ namespace BookReaderApp
             UpdateWallet(userId, newAmount);
         }
 
-        public static void WithdrawToBankAccount(int userId, decimal amount)
+        public static List<Book> GetBooks()
         {
-            decimal currentAmount = GetWallet(userId).Amount;
-            decimal newAmount = currentAmount - amount;
-            UpdateWallet(userId, newAmount);
-        }
+            List<Book> books = new List<Book>();
+            string query = "SELECT bookId, Title, Author, Price FROM Books";
 
-        public static List<BookOwnership> GetAllBorrowedBooks(int userId)
-        {
-            List<BookOwnership> books = new List<BookOwnership>();
-
-            string query = "SELECT userId, bookId, dateBorrowed FROM BookOwnership where userId = @userId";
-
-            string name = "userId";
-            object value = userId;
-            var dt = DatabaseService.SelectData(query, name, value);
-
-            foreach(DataRow row in dt.Rows)
-            {
-                books.Add(new BookOwnership((int)row["userId"],
-                          (int)row["bookId"], (DateTime)row["dateBorrowed"]));
-            }
-
-            return books;
-        }
-
-        public static List<BookOwnership> GetActiveBorrowedBooks(int userId)
-        {
-            List<BookOwnership> books = new List<BookOwnership>();
-
-            string query = "SELECT userId, bookName, BorrowDate FROM BookOwnership where userId = @userId" +
-                "WHERE (DATE(BorrowDate) > (CURDATE() - INTERVAL 1 MONTH) AND BorrowDate < (CURDATE() + INTERVAL 12 HOUR)) " +
-                "OR (DATE(BorrowDate) = (CURDATE() - INTERVAL 1 MONTH) AND HOUR(BorrowDate) >= 13)";
-
-            string name = "userId";
-            object value = userId;
-            var dt = DatabaseService.SelectData(query, name, value);
+            var dt = DatabaseService.SelectData(query);
 
             foreach (DataRow row in dt.Rows)
             {
-                books.Add(new BookOwnership((int)row["userId"],
-                          (int)row["bookId"], (DateTime)row["BorrowDate"]));
+                books.Add(new Book((int)row["bookId"], (string)row["Title"], (string)row["Author"], (decimal)row["Price"]));
             }
 
             return books;
         }
-
         public static List<Transaction> GetTransactions(int walletId)
         {
             List<Transaction> transactions = new List<Transaction>();
@@ -107,7 +74,7 @@ namespace BookReaderApp
             foreach (DataRow row in dt.Rows)
             {
                 transactions.Add(new Transaction((int)row["userId"], walletId,
-                          (int)row["bookId"], (decimal)row["amount"], (DateTime)row["borrowDate"]));
+                          (int)row["bookId"], (decimal)row["amount"], (DateTime)row["borrowDate"], (DateTime)row["returnDate"]));
             }
 
             return transactions;
@@ -129,9 +96,9 @@ namespace BookReaderApp
             return bookPricePairs;
         }
 
-        public static Dictionary<int, Tuple<string, string>> GetBorrowedBooks(int userId)
+        public static List<Tuple<int, string, string>> GetBorrowedBooks(int userId)
         {
-            Dictionary<int, Tuple<string, string>> books = new Dictionary<int, Tuple<string, string>>();
+            List<Tuple<int, string, string>> books = new List<Tuple<int, string, string>>();
 
             string query = "SELECT bookId FROM Transactions WHERE userId = @userId AND current_date < returnDate";
 
@@ -141,10 +108,50 @@ namespace BookReaderApp
 
             foreach (DataRow row in dt.Rows)
             {
-                books.Add((int)row["bookId"], BookService.GetBookTitleAndAuthor((int)row["bookId"]));
+                books.Add(new Tuple<int, string, string>((int)row["bookId"], 
+                    (BookService.GetBookTitleAndAuthor((int)row["bookId"]).Item1), (BookService.GetBookTitleAndAuthor((int)row["bookId"]).Item2)));
             }
 
             return books;
         }
+
+        public static int GetDaysRemaining(int bookId, int userId)
+        {
+            string query = "SELECT returnDate FROM Transactions where bookId = @bookId AND userId = @userID AND current_date < returnDate";
+
+            string[] name = {"bookId", "userId" };
+            object[] value = {bookId, userId};
+            var dt = DatabaseService.SelectData(query, name, value);
+
+
+
+            if (dt.Rows.Count > 0)
+            {
+                DateTime returnDate = (DateTime)dt.Rows[0]["returnDate"];
+                int daysRemaining = (int)(returnDate - DateTime.Today).TotalDays;
+                foreach (DataRow row in dt.Rows)
+                {
+                    if ((int)((DateTime)row["returnDate"] - DateTime.Today).TotalDays > daysRemaining)
+                        daysRemaining = (int)((DateTime)row["returnDate"] - DateTime.Today).TotalDays;
+                }
+
+                return daysRemaining;
+            }
+            else
+            {
+                throw new Exception("No book found with id " + bookId);
+            }
+        }
+
+        public static void CreateTransaction(int bookId, int userId, int walletId, decimal amount, DateTime returnDate)
+        {
+            string query = "INSERT INTO transactions (walletid, userid, bookid, amount, borrowdate, returndate) VALUES (@walletId, @userId, @bookId, @amount, @borrowDate, @returnDate);";
+
+            string[] name = {"walletId", "bookId", "userId", "amount", "borrowDate", "returnDate"};
+            object[] value = {walletId, bookId, userId, amount, DateTime.Now.Date, returnDate.Date};
+
+            DatabaseService.RunQuery(query, name, value);
+        }
+
     }
 }

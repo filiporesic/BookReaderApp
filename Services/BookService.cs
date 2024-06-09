@@ -30,6 +30,7 @@ namespace BookReaderApp
                 throw new Exception("No book found with id " + bookId);
             }
         }
+
         public static string GetBookTitle(int bookId)
         {
             string query = "SELECT Title FROM Books where bookId = @bookId";
@@ -41,6 +42,24 @@ namespace BookReaderApp
             if (dt.Rows.Count > 0)
             {
                 return dt.Rows[0]["Title"].ToString();
+            }
+            else
+            {
+                throw new Exception("No book found with id " + bookId);
+            }
+        }
+
+        public static decimal GetBookPrice(int bookId)
+        {
+            string query = "SELECT Price FROM Books where bookId = @bookId";
+
+            string name = "bookId";
+            object value = bookId;
+            var dt = DatabaseService.SelectData(query, name, value);
+
+            if (dt.Rows.Count > 0)
+            {
+                return (decimal)dt.Rows[0]["Price"];
             }
             else
             {
@@ -85,5 +104,7 @@ namespace BookReaderApp
                 throw new Exception("No book found with id " + bookId);
             }
         }
+
+        
     }
 }
