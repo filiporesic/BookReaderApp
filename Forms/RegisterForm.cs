@@ -10,7 +10,7 @@ namespace BookReaderApp
             InitializeComponent();
         }
 
-        private void btnRegister_Click(object sender, EventArgs e)
+        private void RegisterButton_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text;
             string email = txtEmail.Text;
@@ -34,6 +34,11 @@ namespace BookReaderApp
             {
                 MessageBox.Show("User already exists!");
             }
+        }
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            this.Close();
         }
     }
 }
