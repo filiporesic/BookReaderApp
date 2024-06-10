@@ -81,18 +81,6 @@
     <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Win32.Registry.5.0.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Bson, Version=2.25.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\MongoDB.Bson.2.25.0\lib\net472\MongoDB.Bson.dll</HintPath>
-    </Reference>
-    <Reference Include="MongoDB.Driver, Version=2.25.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\MongoDB.Driver.2.25.0\lib\net472\MongoDB.Driver.dll</HintPath>
-    </Reference>
-    <Reference Include="MongoDB.Driver.Core, Version=2.25.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\MongoDB.Driver.Core.2.25.0\lib\net472\MongoDB.Driver.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="MongoDB.Libmongocrypt, Version=1.8.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\MongoDB.Libmongocrypt.1.8.2\lib\netstandard2.0\MongoDB.Libmongocrypt.dll</HintPath>
-    </Reference>
     <Reference Include="Npgsql, Version=8.0.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>packages\Npgsql.8.0.3\lib\netstandard2.0\Npgsql.dll</HintPath>
     </Reference>
@@ -290,8 +278,6 @@
     <None Include="DB\libmongocrypt.dylib" />
     <None Include="DB\libmongocrypt.so" />
     <None Include="DB\packages.config" />
-    <None Include="libmongocrypt.dylib" />
-    <None Include="libmongocrypt.so" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -308,7 +294,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DB\mongocrypt.dll" />
-    <Content Include="mongocrypt.dll" />
     <Content Include="Queries\CreateDB.sql" />
   </ItemGroup>
   <ItemGroup>
@@ -346,12 +331,10 @@
     </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="packages\MongoDB.Libmongocrypt.1.8.2\build\MongoDB.Libmongocrypt.targets" Condition="Exists('packages\MongoDB.Libmongocrypt.1.8.2\build\MongoDB.Libmongocrypt.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\MongoDB.Libmongocrypt.1.8.2\build\MongoDB.Libmongocrypt.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MongoDB.Libmongocrypt.1.8.2\build\MongoDB.Libmongocrypt.targets'))" />
     <Error Condition="!Exists('packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
     <Error Condition="!Exists('packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
   </Target>
