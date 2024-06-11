@@ -41,6 +41,11 @@ namespace BookReaderApp.Forms
             object[] values = { username, email, PasswordManager.ComputeSha256Hash(password) };
 
             DatabaseService.RunQuery(query, names, values);
+
+            LoginForm page = new LoginForm();
+            Hide();
+            page.ShowDialog();
+            Close();
         }
     }
 }

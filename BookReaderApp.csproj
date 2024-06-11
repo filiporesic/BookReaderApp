@@ -267,6 +267,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Borrowed.resx">
+      <DependentUpon>Borrowed.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrontPage.resx">
       <DependentUpon>FrontPage.cs</DependentUpon>
     </EmbeddedResource>

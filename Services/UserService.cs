@@ -26,6 +26,7 @@ namespace BookReaderApp
                 user.Username =(string) row["Username"];
                 user.PasswordHash =(string) row["PasswordHash"];
                 user.Email =(string) row["Email"];
+                user.Balance = (decimal) row["Wallet"];
 
                 return user;
             }
