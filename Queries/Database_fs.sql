@@ -3,7 +3,7 @@
 CREATE TABLE Users (
     UserId SERIAL PRIMARY KEY,
     Username VARCHAR(20) NOT NULL UNIQUE,
-    Wallet DECIMAL(10, 2) CHECK ( wallet >= 0 ),
+    Wallet DECIMAL(10, 2) CHECK ( wallet >= 0 ) default 0,
     Email VARCHAR(50) NOT NULL UNIQUE,
     PasswordHash VARCHAR(255) NOT NULL
 );
