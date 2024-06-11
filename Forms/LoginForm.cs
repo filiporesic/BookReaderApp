@@ -1,9 +1,6 @@
+﻿using BookReaderApp.Forms;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BookReaderApp
@@ -13,38 +10,62 @@ namespace BookReaderApp
         public LoginForm()
         {
             InitializeComponent();
+
+            FormClosing += LoginForm_FormClosing;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            WindowState = FormWindowState.Maximized;
+            MaximizeBox = false;
+            MinimizeBox = false;
         }
 
-        private void LoginButton_Click(object sender, EventArgs e)
+        private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string username = txtUsername.Text;
-            string password = txtPassword.Text;
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
+            Application.Exit();
+        }
 
-            User user = UserService.GetUserByName(username);
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+            passwordTextBox.UseSystemPasswordChar = true;
+            Controls.Add(panel1);
+        }
 
-            if (VerifyPasswordHash(password, user.PasswordHash))
+        /// <summary>
+        /// Checks password and opens front page form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            string username = usernameTextBox.Text;
+            string password = passwordTextBox.Text;
+            var user = UserService.LogIn(username, password);
+
+            if (user != null)
             {
-                UserId = user.UserId;
-                MessageBox.Show("Login successful!");
-                //sto dalje ide
+                FrontPage frontPage = new FrontPage(user.UserId);
+                Hide();
+                frontPage.ShowDialog();
+                Close();
             }
             else
             {
-                MessageBox.Show("Invalid username or password.");
+                MessageBox.Show("Unable to log in. Check your username or password.");
             }
         }
-
-        private void RegisterButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Shows form for creating new user and hides current form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            RegisterForm RegisterForm = new RegisterForm();
-            RegisterForm.Show();
-            this.Close();
-        }
-
-        private void closeButton_Click(object sender, EventArgs e)
-        {
+            RegisterForm registerForm = new RegisterForm();
+            registerForm.Size = this.Size;
+            registerForm.Location = this.Location;
+            registerForm.WindowState = this.WindowState;
             Hide();
-            this.Close();
+            registerForm.ShowDialog();
         }
     }
 }
