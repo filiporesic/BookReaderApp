@@ -16,6 +16,7 @@ using System.Windows.Forms;
 
 namespace BookReaderApp
 {
+    //ovo je valjda gotovo, tu ce se posudjivati i dodavati u wallet
     public partial class WalletForm : Form
     {
         readonly int userId; 
@@ -118,10 +119,10 @@ namespace BookReaderApp
 
         private void FrontPageButton_Click(object sender, EventArgs e)
         {
-            //FrontPage page = new FrontPage(userId);
-            //Hide();
-            //page.ShowDialog();
-            //Close();
+            FrontPage page = new FrontPage(userId);
+            Hide();
+            page.ShowDialog();
+            Close();
         }
 
         private void HandleCellClick(object cellValue)

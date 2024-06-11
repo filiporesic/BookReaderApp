@@ -209,6 +209,12 @@
     <Compile Include="Data\Book.cs" />
     <Compile Include="Data\Transaction.cs" />
     <Compile Include="Data\User.cs" />
+    <Compile Include="Forms\Borrowed.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Borrowed.Designer.cs">
+      <DependentUpon>Borrowed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrontPage.cs">
       <SubType>Form</SubType>
     </Compile>

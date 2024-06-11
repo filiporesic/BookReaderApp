@@ -50,13 +50,14 @@
             this.stockSymbol,
             this.stockValue,
             this.valueChange});
-            this.stocksGridView.Location = new System.Drawing.Point(1072, 100);
+            this.stocksGridView.Location = new System.Drawing.Point(1206, 125);
+            this.stocksGridView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.stocksGridView.Name = "stocksGridView";
             this.stocksGridView.ReadOnly = true;
             this.stocksGridView.RowHeadersVisible = false;
             this.stocksGridView.RowHeadersWidth = 62;
             this.stocksGridView.RowTemplate.Height = 28;
-            this.stocksGridView.Size = new System.Drawing.Size(418, 523);
+            this.stocksGridView.Size = new System.Drawing.Size(470, 654);
             this.stocksGridView.TabIndex = 6;
             // 
             // stockSymbol
@@ -90,22 +91,21 @@
             "Two Weeks",
             "One Month",
             "Two Months"});
-            this.dateComboBox.Location = new System.Drawing.Point(1072, 661);
+            this.dateComboBox.Location = new System.Drawing.Point(1206, 826);
+            this.dateComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dateComboBox.Name = "dateComboBox";
-            this.dateComboBox.Size = new System.Drawing.Size(166, 24);
+            this.dateComboBox.Size = new System.Drawing.Size(186, 28);
             this.dateComboBox.TabIndex = 7;
             this.dateComboBox.SelectedIndexChanged += new System.EventHandler(this.dateComboBox_SelectedIndexChanged);
-            // 
-            // HistoryChart
-            // 
             // 
             // WalletButton
             // 
             this.WalletButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.WalletButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WalletButton.Location = new System.Drawing.Point(1072, 762);
+            this.WalletButton.Location = new System.Drawing.Point(1206, 952);
+            this.WalletButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.WalletButton.Name = "WalletButton";
-            this.WalletButton.Size = new System.Drawing.Size(154, 52);
+            this.WalletButton.Size = new System.Drawing.Size(173, 65);
             this.WalletButton.TabIndex = 26;
             this.WalletButton.Text = "Wallet";
             this.WalletButton.UseVisualStyleBackColor = false;
@@ -115,24 +115,26 @@
             // 
             this.PortfolioButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.PortfolioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PortfolioButton.Location = new System.Drawing.Point(1336, 762);
+            this.PortfolioButton.Location = new System.Drawing.Point(1503, 952);
+            this.PortfolioButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.PortfolioButton.Name = "PortfolioButton";
-            this.PortfolioButton.Size = new System.Drawing.Size(154, 52);
+            this.PortfolioButton.Size = new System.Drawing.Size(173, 65);
             this.PortfolioButton.TabIndex = 27;
-            this.PortfolioButton.Text = "Portfolio";
+            this.PortfolioButton.Text = "Borrowed books";
             this.PortfolioButton.UseVisualStyleBackColor = false;
             this.PortfolioButton.Click += new System.EventHandler(this.PortfolioButton_Click);
             // 
             // FrontPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(3322, 1423);
+            this.ClientSize = new System.Drawing.Size(1924, 1199);
             this.Controls.Add(this.PortfolioButton);
             this.Controls.Add(this.WalletButton);
             this.Controls.Add(this.dateComboBox);
             this.Controls.Add(this.stocksGridView);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrontPage";
             this.Text = "Front Page";
             this.Load += new System.EventHandler(this.FrontPageV2_Load);

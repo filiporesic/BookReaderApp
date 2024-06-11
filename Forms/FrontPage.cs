@@ -10,6 +10,15 @@ using System.Windows.Forms;
 
 namespace BookReaderApp
 {
+    // ovdje je i popis posudjenih i "store"
+    // ideja: kod generiranja posudjenih gledamo sve u tablici transactions
+    //        sa njegovim imenom i filtriramo tako da pogledamo jel danasnji datum
+    //        <= return date-a
+    // tako imamo povijest transakcija, a user ne mora manualno "vracati"
+
+    // dakle ova stranica je samo vizualna i nemoze na njoj nista raditi nego samo da kao vidi kaj ima svoje i kaj ima u trgovini
+
+    // ima dosta koda kojeg treba obrisat al to cemo kad napravimo izgled tek
     public partial class FrontPage : Form
     {
 
@@ -101,30 +110,6 @@ namespace BookReaderApp
         // Sluzi za dodavanje podataka u pie chart i u graf s podatcima o dionicama
         public void InitUI()
         {
-            //if (userId == 0)
-            //{
-            //    WalletButton.Visible = false;
-            //    PortfolioButton.Visible = false;
-            //}
-            //HistoryChart.Series.Remove(HistoryChart.Series["Series1"]);
-
-            //////////////////////////////////////////////////////////////
-
-            //foreach (var stockName in WalletService.GetAvailableStocksWithValues().Keys)
-            //{
-            //    HistoryChart.Series.Add(stockName); // za svaku dionicu radi novu Series instancu
-            //    HistoryChart.Series[stockName].ChartType = SeriesChartType.Line;
-            //    // Populate data points for each day
-            //    for (int i = 0; i <= 30; i++)
-            //    {
-            //        Dictionary<string, decimal> stockValues = Portfolio.GetAvailableStocksWithValuesForMonth(i - 30); // Pomocna funkcija iz forme Portfolio koja vraca rijecnik sa 
-
-            //        if (stockValues.ContainsKey(stockName))
-            //        {
-            //            HistoryChart.Series[stockName].Points.AddXY($"Day {i + 1}", stockValues[stockName]); // Dodaje tocku koje reprezentira vrijednost te dionicu u danom danu
-            //        }
-            //    }
-            //}
         }
 
         private void WalletButton_Click(object sender, EventArgs e)
