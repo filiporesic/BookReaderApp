@@ -17,9 +17,9 @@ namespace BookReaderApp
             string password1 = txtPassword1.Text;
             string password2 = txtPassword2.Text;
 
-            if(password1==password2 && !GetUserByName(username))
+            if(password1==password2 && UserService.GetUserByName(username) != new User())
             {
-                User newUser = new User(username, email, password);
+                User newUser = new User(username, email, password1);
                 UserService.CreateUser(newUser);
                 MessageBox.Show("Registration successful!");
                 LoginForm loginForm = new LoginForm();
@@ -30,7 +30,7 @@ namespace BookReaderApp
             {
                 MessageBox.Show("Passwords do not match!");
             }
-            if(GetUserByName(username))
+            if(UserService.GetUserByName(username) != new User())
             {
                 MessageBox.Show("User already exists!");
             }
@@ -39,6 +39,19 @@ namespace BookReaderApp
         {
             Hide();
             this.Close();
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // RegisterForm
+            // 
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClientSize = new System.Drawing.Size(1924, 1199);
+            this.Name = "RegisterForm";
+            this.ResumeLayout(false);
+
         }
     }
 }

@@ -20,11 +20,11 @@ namespace BookReaderApp
             if(dt.Rows.Count > 0 )
             {
                 DataRow row = dt.Rows[0];
-                User user = new User;
-                user.UserId = row["UserID"];
-                user.username = row["Username"];
-                user.PasswordHash = row["PasswordHash"];
-                user.Email = row["Email"];
+                User user = new User();
+                user.UserId =(int) row["UserID"];
+                user.Username =(string) row["Username"];
+                user.PasswordHash =(string) row["PasswordHash"];
+                user.Email =(string) row["Email"];
 
                 return user;
             }
@@ -34,14 +34,14 @@ namespace BookReaderApp
             }
         }
 
-        public static void CreateUser(User newuser);
+        public static void CreateUser(User newuser)
         {
             string[] names = {"username, email, passwordhash"};
             string[] values = {newuser.Username, newuser.Email, newuser.PasswordHash};
 
             string query = "INSERT INTO Users (Username, Email, PasswordHash) VALUES (@username, @email, @passwordhash)";
 
-            DatabaseService.UpdateQuery(query, names, values);
+            DatabaseService.RunQuery(query, names, values);
 
             return;
         }
