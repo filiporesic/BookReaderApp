@@ -217,11 +217,17 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\ReaderForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\ReaderForm.Designer.cs">
       <DependentUpon>ReaderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RegisterForm.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\TransferForm.cs">
       <SubType>Form</SubType>
@@ -239,6 +245,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BookService.cs" />
     <Compile Include="Services\DatabaseService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\WalletService.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -274,7 +281,10 @@
     <None Include="BookReaderAppDataSet.xss">
       <DependentUpon>BookReaderAppDataSet.xsd</DependentUpon>
     </None>
-    <None Include="Books\BookId1.pdf" />
+    <None Include="Books\AS.pdf" />
+    <None Include="Books\difraf.pdf" />
+    <None Include="Books\matstat.pdf" />
+    <None Include="Books\utb.pdf" />
     <None Include="DB\libmongocrypt.dylib" />
     <None Include="DB\libmongocrypt.so" />
     <None Include="DB\packages.config" />
@@ -295,6 +305,7 @@
   <ItemGroup>
     <Content Include="DB\mongocrypt.dll" />
     <Content Include="Queries\CreateDB.sql" />
+    <Content Include="Queries\Database_fs.sql" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -310,25 +321,6 @@
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="packages\AWSSDK.SecurityToken.3.7.100.14\analyzers\dotnet\cs\AWSSDK.SecurityToken.CodeAnalysis.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="AcroPDFLib">
-      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="AxAcroPDFLib">
-      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>aximp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
