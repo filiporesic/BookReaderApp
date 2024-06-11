@@ -46,5 +46,16 @@ namespace BookReaderApp
             return;
         }
 
+        public static User LogIn(string username, string password)
+        {
+            using (var context = new StockExchangeDbContext())
+            {
+                var user = context.Users.FirstOrDefault(x => x.Username == username);
+                if (PasswordManager.VerifyPasswordHash(password, user?.PasswordHash))
+                    return user;
+                else return null;
+            }
+        }
+
     }
 }

@@ -3,6 +3,7 @@
 CREATE TABLE Users (
     UserId SERIAL PRIMARY KEY,
     Username VARCHAR(20) NOT NULL UNIQUE,
+    Wallet DECIMAL(10, 2) CHECK ( wallet >= 0 ),
     Email VARCHAR(50) NOT NULL UNIQUE,
     PasswordHash VARCHAR(255) NOT NULL
 );
@@ -16,23 +17,28 @@ CREATE TABLE Books (
     UNIQUE (Title, Author)
 );
 
-CREATE TABLE Wallets (
-    WalletId SERIAL PRIMARY KEY,
-    UserId INT,
-    Amount DECIMAL(10, 2) CHECK ( amount >= 0 ),
-    FOREIGN KEY (UserId) REFERENCES Users(UserId)
-);
+
 
 CREATE TABLE Transactions (
     TransactionId SERIAL PRIMARY KEY,
     UserId INT,
     BookId INT,
-    Amount  DECIMAL(10, 2) NOT null CHECK ( amount >= 0 ),
-    BorrowDate DATE NOT NULL,
-    ReturnDate DATE,
+    Amount  DECIMAL(10, 2) NOT NULL CHECK ( amount >= 0 ),
+    BorrowDate DATE  NOT NULL,
+    ReturnDate DATE ,
     FOREIGN KEY (UserId) REFERENCES Users(UserId),
     FOREIGN KEY (BookId) REFERENCES Books(BookId)
 );
+
+
+CREATE EXTENSION HSTORE;
+CREATE TABLE BookLocations (BookLocation hstore);
+
+INSERT INTO BookLocations VALUES 
+('1 => ".\\Books\\matstat.pdf"'),
+('2 => ".\\Books\\AS.pdf"'),
+('3 => ".\\Books\\difraf.pdf"'),
+('4 => ".\\Books\\utb.pdf"');
 
 
 
@@ -46,14 +52,16 @@ CREATE TABLE Transactions (
 
 create or replace function wallet_check () returns trigger as $$
 begin 
-	  if( new.amount >= 
-	       ( select sum(amount) from wallets 
-	                            where wallets.userid = new.userid) )  then  
+	  if( new.amount > 
+	       ( select wallet from users 
+	                            where users.userid = new.userid) )  then  
 	           raise exception 'Korisnik nema dovoljno sredstva u novčaniku!';
 	  end if;
-	  return null;
+	 
+	  return new;
 end;
 $$ language plpgsql;
+
 
 
 
@@ -66,14 +74,14 @@ create trigger check_buy
     
      
     
-create or replace procedure posudba (   
+create or replace procedure posudba (   --ako ne postoje userid ili bookid isto provjeravamo!
        x_bookid INT,
        x_userid INT) AS $$
 declare 
     x_amount decimal(10,2);
-    wid      int;
-    wam      decimal(10,2);
+    wllt      decimal(10,2);
 begin 
+	
 	if not exists (select * from books where  bookid = x_bookid) then  
 	         raise exception 'Nepostojeća knjiga u transakciji!';
 	end if;
@@ -89,21 +97,14 @@ begin
     
  	insert into transactions(BookID, UserID, Amount, BorrowDate, ReturnDate) values
  	(x_bookid, x_userid, x_amount, current_timestamp, current_timestamp + interval '1 month');
- 
-   
-    for wid,wam in 
-                select walletid,amount from wallets 
-                                where wallets.userid = x_userid 
-                                order by amount DESC
-         loop 
-	         if( wam >= x_amount ) then 
-	             update wallets set amount = amount - x_amount where wallets.walletid = wid;
-	             exit;
-	         else 
-	            update wallets set amount = 0 where wallets.walletid = wid;
-	            x_amount = x_amount - wam;
-	         end if;  	
-         end loop;         
+    
+    select wallet 
+        into wllt 
+        from users
+        where userid = x_userid;
+       
+	 update users set wallet = wallet - x_amount 
+	              where users.userid = x_userid;
 end;
 $$ language plpgsql;
 
@@ -112,19 +113,10 @@ $$ language plpgsql;
 --------------------------------------------------------------------------------------------- testiranje
 
 
-
-INSERT INTO Users ( Username, Email, PasswordHash) VALUES
-('Marko', 'marko@gmail.com', '1232'),
-('Ivan', 'ivan@gmail.com', '1111'),
-('Stjepan', 'stjepan@gmail.com','2222');
-
-insert into wallets (userid, amount) values  
-('1', 25),
-('2', 10),
-('2', 5),
-('1', 25),
-('2', 10),
-('2', 5);
+INSERT INTO Users ( Username, Email, Wallet , PasswordHash) VALUES
+('Marko', 'marko@gmail.com', 50,  '1232'),
+('Ivan', 'ivan@gmail.com', 30 ,  '1111'),
+('Stjepan', 'stjepan@gmail.com', 20 , '2222');
 
 
 insert into books(Title, Author, Price, other)  values          
@@ -151,4 +143,4 @@ CALL posudba(1,1);   --Sve OK
 /*drop table books cascade;
 drop table transactions cascade;
 drop table users cascade;
-drop table wallets cascade;*/
+drop table booklocations cascade;*/

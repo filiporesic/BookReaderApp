@@ -1,7 +1,14 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BookReaderApp
+namespace BookReaderApp.Forms
 {
     public partial class RegisterForm : Form
     {
@@ -10,48 +17,38 @@ namespace BookReaderApp
             InitializeComponent();
         }
 
-        private void RegisterButton_Click(object sender, EventArgs e)
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            LoginForm page = new LoginForm();
+            Hide();
+            page.ShowDialog();
+            Close();
+        }
+
+        private void registerButton_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text;
             string email = txtEmail.Text;
-            string password1 = txtPassword1.Text;
-            string password2 = txtPassword2.Text;
+            string password = txtPassword.Text;
 
-            if(password1==password2 && UserService.GetUserByName(username) != new User())
-            {
-                User newUser = new User(username, email, password1);
-                UserService.CreateUser(newUser);
-                MessageBox.Show("Registration successful!");
-                LoginForm loginForm = new LoginForm();
-                loginForm.Show();
-                this.Close();
-            }
-            if(password1!=password2)
-            {
-                MessageBox.Show("Passwords do not match!");
-            }
-            if(UserService.GetUserByName(username) != new User())
+            User reg = new User(username, email, password);
+
+            if (reg == UserService.GetUserByName(username))
             {
                 MessageBox.Show("User already exists!");
             }
-        }
-        private void closeButton_Click(object sender, EventArgs e)
-        {
-            Hide();
-            this.Close();
-        }
 
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // RegisterForm
-            // 
-            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1924, 1199);
-            this.Name = "RegisterForm";
-            this.ResumeLayout(false);
+            else
+            {
+                // create new user
+                string query = "INSERT INTO Users (Username, Email, PasswordHash) values" +
+                    "(@Username, @Email, @PasswordHash);";
 
+                string[] names = { "Username", "Email", "PasswordHash" };
+                object[] values = { username, email, PasswordManager.ComputeSha256Hash(password) };
+
+                DatabaseService.RunQuery(query, names, values);
+            }
         }
     }
 }

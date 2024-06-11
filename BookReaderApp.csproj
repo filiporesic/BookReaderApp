@@ -210,7 +210,19 @@
     <Compile Include="Data\Transaction.cs" />
     <Compile Include="Data\Wallet.cs" />
     <Compile Include="Data\User.cs" />
-    <Compile Include="Data\PasswordManager.cs" />
+    <Compile Include="Forms\FrontPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrontPage.designer.cs">
+      <DependentUpon>FrontPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RegisterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RegisterForm.Designer.cs">
+      <DependentUpon>RegisterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordManager.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -220,14 +232,14 @@
     <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ReaderForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\ReaderForm.Designer.cs">
       <DependentUpon>ReaderForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\RegisterForm.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\TransferForm.cs">
       <SubType>Form</SubType>
@@ -247,8 +259,15 @@
     <Compile Include="Services\DatabaseService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\WalletService.cs" />
+    <Compile Include="StockExchangeDbContext.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrontPage.resx">
+      <DependentUpon>FrontPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ReaderForm.resx">
       <DependentUpon>ReaderForm.cs</DependentUpon>
@@ -272,7 +291,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="Aplikacija za posudbu i čitanje knjiga.docx" />
-    <None Include="BookId1.pdf" />
     <None Include="BookReaderAppDataSet.xsc">
       <DependentUpon>BookReaderAppDataSet.xsd</DependentUpon>
     </None>
