@@ -250,6 +250,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ReaderForm.resx">
       <DependentUpon>ReaderForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -288,9 +291,6 @@
     <None Include="Books\difraf.pdf" />
     <None Include="Books\matstat.pdf" />
     <None Include="Books\utb.pdf" />
-    <None Include="DB\libmongocrypt.dylib" />
-    <None Include="DB\libmongocrypt.so" />
-    <None Include="DB\packages.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -306,7 +306,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DB\mongocrypt.dll" />
     <Content Include="Queries\CreateDB.sql" />
     <Content Include="Queries\Database_fs.sql" />
   </ItemGroup>
