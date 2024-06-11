@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BookReaderApp
 {
@@ -55,7 +56,11 @@ namespace BookReaderApp
                     return user;
                 else return null;
             }*/
-            return null;
+            User lgin = GetUserByName(username);
+            if (PasswordManager.VerifyPasswordHash(password, lgin.PasswordHash))
+                return lgin;
+            else
+                return null;
         }
 
     }

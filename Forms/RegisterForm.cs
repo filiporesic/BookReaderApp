@@ -33,22 +33,14 @@ namespace BookReaderApp.Forms
 
             User reg = new User(username, email, password);
 
-            if (reg == UserService.GetUserByName(username))
-            {
-                MessageBox.Show("User already exists!");
-            }
+            // create new user
+            string query = "INSERT INTO Users (Username, Email, PasswordHash) values" +
+                "(@Username, @Email, @PasswordHash);";
 
-            else
-            {
-                // create new user
-                string query = "INSERT INTO Users (Username, Email, PasswordHash) values" +
-                    "(@Username, @Email, @PasswordHash);";
+            string[] names = { "Username", "Email", "PasswordHash" };
+            object[] values = { username, email, PasswordManager.ComputeSha256Hash(password) };
 
-                string[] names = { "Username", "Email", "PasswordHash" };
-                object[] values = { username, email, PasswordManager.ComputeSha256Hash(password) };
-
-                DatabaseService.RunQuery(query, names, values);
-            }
+            DatabaseService.RunQuery(query, names, values);
         }
     }
 }
