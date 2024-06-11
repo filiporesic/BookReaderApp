@@ -9,7 +9,6 @@ namespace BookReaderApp
 {
     internal static class BookService
     {
-        //TODO: razmisliti kako ce izgledati tablica Books
         public static Book GetBook(int bookId)
         {
             string query = "SELECT * FROM Books where bookId = @bookId";

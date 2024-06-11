@@ -16,7 +16,7 @@ namespace BookReaderApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            Application.Run(new WalletForm(1));
         }
     }
 }

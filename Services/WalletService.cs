@@ -9,42 +9,40 @@ namespace BookReaderApp
 {
     internal static class WalletService
     {
-        public static Wallet GetWallet(int userId)
+
+        public static void DepositToWallet(int userId, decimal amount)
         {
-            string query = "SELECT walletId, userId, amount FROM Wallets where userId = @userId";
+            decimal currentAmount = GetBalance(userId);
+            decimal newAmount = currentAmount + amount;
+            UpdateWallet(userId, newAmount);
+        }
+
+        public static decimal GetBalance(int userId)
+        {
+            string query = "SELECT Wallet FROM Users where userId = @userId";
 
             string name = "userId";
             object value = userId;
             var dt = DatabaseService.SelectData(query, name, value);
 
-            if(dt.Rows.Count > 0 )
+            if (dt.Rows.Count > 0)
             {
-                DataRow row = dt.Rows[0];
-                Wallet wallet = new Wallet((int)row["walletId"], userId, (decimal)row["amount"]);
-
-                return wallet;
+                return (decimal)dt.Rows[0]["wallet"];
             }
             else
             {
-                throw new Exception("No wallet found with id " +  userId);
+                throw new Exception("No user found with id " + userId);
             }
         }
 
         public static void UpdateWallet(int userId, decimal amount)
         {
-            string query = "UPDATE Wallets SET amount = @amount WHERE userID = @userId";
+            string query = "UPDATE Users SET wallet = @amount WHERE userID = @userId";
 
-            string[] names = {"amount", "userId"};
-            object[] values = {amount, userId};
+            string[] names = { "amount", "userId" };
+            object[] values = { amount, userId };
 
             DatabaseService.RunQuery(query, names, values);
-        }
-
-        public static void DepositToWallet(int userId, decimal amount)
-        {
-            decimal currentAmount = GetWallet(userId).Amount;
-            decimal newAmount = currentAmount + amount;
-            UpdateWallet(userId, newAmount);
         }
 
         public static List<Book> GetBooks()
@@ -61,19 +59,19 @@ namespace BookReaderApp
 
             return books;
         }
-        public static List<Transaction> GetTransactions(int walletId)
+        public static List<Transaction> GetTransactions(int userId)
         {
             List<Transaction> transactions = new List<Transaction>();
 
-            string query = "SELECT transactionId, userId, bookId, amount, borrowDate, returnDate FROM Transactions where walletId = @walletId";
+            string query = "SELECT transactionId, bookId, amount, borrowDate, returnDate FROM Transactions where userId = @userId";
 
-            string name = "walletId";
-            object value = walletId;
+            string name = "userId";
+            object value = userId;
             var dt = DatabaseService.SelectData(query, name, value);
 
             foreach (DataRow row in dt.Rows)
             {
-                transactions.Add(new Transaction((int)row["userId"], walletId,
+                transactions.Add(new Transaction((int)row["transactionId"], userId,
                           (int)row["bookId"], (decimal)row["amount"], (DateTime)row["borrowDate"], (DateTime)row["returnDate"]));
             }
 
@@ -143,12 +141,12 @@ namespace BookReaderApp
             }
         }
 
-        public static void CreateTransaction(int bookId, int userId, int walletId, decimal amount, DateTime returnDate)
+        public static void CreateTransaction(int bookId, int userId, decimal amount, DateTime returnDate)
         {
-            string query = "INSERT INTO transactions (walletid, userid, bookid, amount, borrowdate, returndate) VALUES (@walletId, @userId, @bookId, @amount, @borrowDate, @returnDate);";
+            string query = "INSERT INTO transactions (userid, bookid, amount, borrowdate, returndate) VALUES (@userId, @bookId, @amount, @borrowDate, @returnDate);";
 
-            string[] name = {"walletId", "bookId", "userId", "amount", "borrowDate", "returnDate"};
-            object[] value = {walletId, bookId, userId, amount, DateTime.Now.Date, returnDate.Date};
+            string[] name = {"bookId", "userId", "amount", "borrowDate", "returnDate"};
+            object[] value = {bookId, userId, amount, DateTime.Now.Date, returnDate.Date};
 
             DatabaseService.RunQuery(query, name, value);
         }

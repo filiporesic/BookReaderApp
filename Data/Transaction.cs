@@ -9,7 +9,7 @@ namespace BookReaderApp
     internal class Transaction
     {
         public int TransactionId { get; set; }
-        public int WalletId { get; set; }
+        public int UserId { get; set; }
         public int BookId { get; set; }
         public string Title { get; set; }
         public decimal Amount { get; set; }
@@ -18,10 +18,10 @@ namespace BookReaderApp
 
         public Transaction() { }
 
-        public Transaction(int transactionId, int walletId, int bookId, decimal amount)
+        public Transaction(int transactionId, int userId, int bookId, decimal amount)
         {
             TransactionId = transactionId;
-            WalletId = walletId;
+            UserId = userId;
             BookId = bookId;
             Title = BookService.GetBookTitle(bookId);
             Amount = amount;
@@ -29,10 +29,10 @@ namespace BookReaderApp
             ReturnDate = DateTime.UtcNow.AddMonths(1);
         }
 
-        public Transaction(int transactionId, int walletId, int bookId, decimal amount, DateTime borrowDate)
+        public Transaction(int transactionId, int userId, int bookId, decimal amount, DateTime borrowDate)
         {
             TransactionId = transactionId;
-            WalletId = walletId;
+            UserId = userId;
             BookId = bookId;
             Title = BookService.GetBookTitle(bookId);
             Amount = amount;
@@ -40,10 +40,10 @@ namespace BookReaderApp
             ReturnDate = borrowDate.AddMonths(1);
         }
 
-        public Transaction(int transactionId, int walletId, int bookId, decimal amount, DateTime borrowDate, DateTime returnDate)
+        public Transaction(int transactionId, int userId, int bookId, decimal amount, DateTime borrowDate, DateTime returnDate)
         {
             TransactionId = transactionId;
-            WalletId = walletId;
+            UserId = userId;
             BookId = bookId;
             Title = BookService.GetBookTitle(bookId);
             Amount = amount;

@@ -22,11 +22,6 @@ namespace BookReaderApp
         public WalletForm(int userId)
         {
             this.userId = userId;
-            if (WalletService.GetWallet(userId) == null) 
-            {
-                MessageBox.Show("Error! Please contact our customer support");
-                return; //TO DO
-            }
             InitializeComponent();
 
             //Icon = Properties.Resources.icon;
@@ -58,14 +53,14 @@ namespace BookReaderApp
 
         private void WalletForm_Load(object sender, EventArgs e)
         {
-            decimal amount = WalletService.GetWallet(userId).Amount;
+            decimal amount = WalletService.GetBalance(userId);
             walletBalance.Text = "Wallet balace: " + amount.ToString();
 
             List<Transaction> transactions = WalletService.GetTransactions(userId);
             
             dataGridTransactions.DataSource = transactions;
-            dataGridTransactions.Columns["WalletId"].Visible = false;
             dataGridTransactions.Columns["BookId"].Visible = false;
+            dataGridTransactions.Columns["UserId"].Visible = false;
 
             costLabel.Text = "Cost: 0";
             availableBooksGridView.Rows.Clear();
@@ -115,7 +110,7 @@ namespace BookReaderApp
                 //nakon uplate ili isplate osvježimo stanje računa
                 if(transferForm.ShowDialog() == DialogResult.OK)
                 {
-                    decimal walletAmount = WalletService.GetWallet(userId).Amount;
+                    decimal walletAmount = WalletService.GetBalance(userId);
                     walletBalance.Text = "Wallet balance: " + walletAmount.ToString();
                 }
             }
@@ -182,10 +177,10 @@ namespace BookReaderApp
                 returnDate = returnDate.AddMonths(1);
             }
 
-            if (WalletService.GetWallet(userId).Amount >= amount)
+            if (WalletService.GetBalance(userId) >= amount)
             {
-                WalletService.UpdateWallet(userId, WalletService.GetWallet(userId).Amount - amount);
-                WalletService.CreateTransaction(bookId, userId, WalletService.GetWallet(userId).WalletId, amount, returnDate);
+                WalletService.UpdateWallet(userId, WalletService.GetBalance(userId) - amount);
+                WalletService.CreateTransaction(bookId, userId, amount, returnDate);
                 WalletForm_Load(sender, e);
             }
             else
@@ -241,11 +236,11 @@ namespace BookReaderApp
                         return;
                 }
 
-                if (WalletService.GetWallet(userId).Amount >= price)
+                if (WalletService.GetBalance(userId) >= price)
                 {
                     DateTime returnDate = DateTime.Now.Date.AddMonths(1);
-                    WalletService.UpdateWallet(userId, WalletService.GetWallet(userId).Amount - price);
-                    WalletService.CreateTransaction(bookId, userId, WalletService.GetWallet(userId).WalletId, price, returnDate);
+                    WalletService.UpdateWallet(userId, WalletService.GetBalance(userId) - price);
+                    WalletService.CreateTransaction(bookId, userId, price, returnDate);
                     WalletForm_Load(sender, e);
                 }
             }

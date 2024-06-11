@@ -208,7 +208,6 @@
     </Compile>
     <Compile Include="Data\Book.cs" />
     <Compile Include="Data\Transaction.cs" />
-    <Compile Include="Data\Wallet.cs" />
     <Compile Include="Data\User.cs" />
     <Compile Include="Forms\FrontPage.cs">
       <SubType>Form</SubType>
@@ -259,7 +258,6 @@
     <Compile Include="Services\DatabaseService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\WalletService.cs" />
-    <Compile Include="StockExchangeDbContext.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
