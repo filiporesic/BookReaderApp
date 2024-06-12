@@ -35,12 +35,6 @@ CREATE EXTENSION HSTORE;
 CREATE TABLE BookLocations (BookLocation hstore);
 CREATE INDEX idx_BookLocations ON booklocations USING GiST(BookLocation);
 
-INSERT INTO BookLocations VALUES 
-('1 => ".\\Books\\matstat.pdf"'),
-('2 => ".\\Books\\AS.pdf"'),
-('3 => ".\\Books\\difraf.pdf"'),
-('4 => ".\\Books\\utb.pdf"');
-
 
 
 
@@ -133,9 +127,41 @@ insert into books(Title, Author, Price, other)  values
 ('Uvod u Teoriju brojeva', 'Andrej Dujella', 8, 
   '{"Genre":"Teorija brojeva", "Release year": 2023, "Description":"Teorija brojeva je grana matematike koja se ponajprije bavi proucavanjem svojstava skupa prirodnih brojeva."}'
 );
+INSERT INTO BookLocations VALUES 
+('1 => ".\\Books\\matstat.pdf"'),
+('2 => ".\\Books\\AS.pdf"'),
+('3 => ".\\Books\\difraf.pdf"'),
+('4 => ".\\Books\\utb.pdf"');
 
 CALL posudba(1,2);   --Nema dovoljno sredstva!
 CALL posudba(1,1);   --Sve OK
+
+insert into books(Title, Author, Price, other)  values          
+('Uvod u optimizaciju', 'Marko Vrdoljak', 13, 
+   '{"Genre": "Optimizacija", "Release year": 2019, "Description": "Zadaci za vježbu."}'
+),
+('Vremenski nizovi, Hilbertovi prostori', 'Bojan Basrak', 5, 
+  '{"Genre": "Vremenski nizovi." , "Release year": 2020 , "Description": "Hilbertovi prostori. Predikcija i uvjetna očekivanja."}'
+),
+('Kombinatorika', 'Vedran Krčadinac', 26, 
+  '{"Genre": "Kombinatorika", "Release year": 2023 , "Description": "Kombinatorika (kombinatorna matematika) je grana diskretne matematike koja se bavi diskretnim strukturama koje su finitne ili koje se mogu brojiti. Povezana je s mnogim drugim granama matematike, poput algebre, teorije vjerojatnosti i geometrije kao i raznim područjima u računarstvu i statističkoj fizici."}'
+),
+('Markovljevi lanci', 'Rudi Mrazović', 19, 
+  '{"Genre": "Statistika", "Release year": 2019, "Description": "U ovom uvodnom poglavlju kratko ćemo ponoviti pojmove nezavisnosti i uvjetne nezavisnosti, te funkcije izvodnice vjerojatnosti. Uvjetna nezavisnost se javlja u definiciji Markovljevih lanaca – intuitivno, to su slučajni procesi u kojima prošlost i budućnost, iako općenito zavisni, postaju uvjetno nezavisni uz danu vrijednost procesa u sadašnjem trenutku. Funkcije izvodnice vjerojatnosti su analitički alat koji ćemo koristiti u analiziranju jednog standardnog primjera Markovljevog lanca, a to su tzv. procesi grananja."}'
+),
+('Kompleksna analiza', 'Pavle Pandžić', 45, 
+  '{"Genre":"Analiza" , "Release year": 2021 , "Description": "Pojam kompleksnih brojeva prvi put susrecemo u srednjoškolskoj matematici kod pronalaženja rješenja kvadratne jednadžbe. Mogli bismo iz toga zakljuciti da su kompleksni brojevi upravo zbog toga i uvedeni (to jest, izmišljeni) - kako bi svaka kvadratna jednadžba imala rješenje. Medutim, povijesno gledajuci, to nije tako bilo, nisu kvadratne jednažbe te koje su motivirale definiranje nove vrste brojeva, nego kubne. Iako nam se to na prvi pogled može ciniti cudno, zapravo je vrlo logicno." }'
+),
+('INTRAF', 'Ilja Gogić', 60, 
+  '{"Genre":"Analiza" , "Release year": 2023 , "Description": "Kao sto znamo, poslije deriviranja na red dolazi integriranje. U R smo integrirali po intervalima ili unijama intervala, dok je u Rn izbor mnogo veci. Najprije cemo integrirati skalarne funkcije f : Rn → R po izvjesnim n-dimenzionalnim podskupovima Rn, pocevsi sa slucajem n = 2. Podrucja integracije u R2 mogu biti pravokutnici, ali i npr. kompaktna podrucja omedena grafovima neprekidnih funkcija."}'
+);
+INSERT INTO BookLocations VALUES 
+('5 => ".\\Books\\uopt_zadaci.pdf"'),
+('6 => ".\\Books\\VrNiz.Hilbert.pdf"'),
+('7 => ".\\Books\\KOMB.pdf"'),
+('8 => ".\\Books\\ML_vjezbe.pdf"'),
+('9 => ".\\Books\\KOMPA.pdf"'),
+('10 => ".\\Books\\intraf.pdf"');
 
 
 --select other ->> 'Genre' from books;
