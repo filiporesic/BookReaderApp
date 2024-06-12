@@ -21,18 +21,20 @@ namespace BookReaderApp
             if(dt.Rows.Count > 0 )
             {
                 DataRow row = dt.Rows[0];
-                User user = new User();
-                user.UserId =(int) row["UserID"];
-                user.Username =(string) row["Username"];
-                user.PasswordHash =(string) row["PasswordHash"];
-                user.Email =(string) row["Email"];
-                user.Balance = (decimal) row["Wallet"];
+                User user = new User
+                {
+                    UserId = (int)row["UserID"],
+                    Username = (string)row["Username"],
+                    PasswordHash = (string)row["PasswordHash"],
+                    Email = (string)row["Email"],
+                    Balance = (decimal)row["Wallet"]
+                };
 
                 return user;
             }
             else
             {
-                throw new Exception("No user found with username " +  username);
+                return new User();
             }
         }
 
@@ -50,14 +52,11 @@ namespace BookReaderApp
 
         public static User LogIn(string username, string password)
         {
-            /*using (var context = "123"))
-            {
-                var user = context.Users.FirstOrDefault(x => x.Username == username);
-                if (PasswordManager.VerifyPasswordHash(password, user?.PasswordHash))
-                    return user;
-                else return null;
-            }*/
             User lgin = GetUserByName(username);
+            if (lgin == new User() )
+            {
+                return null;
+            }
             if (PasswordManager.VerifyPasswordHash(password, lgin.PasswordHash))
                 return lgin;
             else

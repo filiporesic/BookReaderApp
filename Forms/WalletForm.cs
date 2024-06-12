@@ -25,7 +25,6 @@ namespace BookReaderApp
             this.userId = userId;
             InitializeComponent();
 
-            //Icon = Properties.Resources.icon;
             dataGridTransactions.CellFormatting += DataGridTransactions_CellFormatting; //za uređivanje brojeva transakcija
             FormBorderStyle = FormBorderStyle.FixedSingle;//ne želimo omogućiti korisnicima promjenu veličine prozora
             WindowState = FormWindowState.Maximized;

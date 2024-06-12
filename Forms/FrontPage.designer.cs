@@ -28,75 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.stocksGridView = new System.Windows.Forms.DataGridView();
-            this.stockSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stockValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valueChange = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateComboBox = new System.Windows.Forms.ComboBox();
             this.WalletButton = new System.Windows.Forms.Button();
-            this.PortfolioButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.stocksGridView)).BeginInit();
+            this.BorrowedButton = new System.Windows.Forms.Button();
+            this.availableBooksGridView = new System.Windows.Forms.DataGridView();
+            this.BookId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.remaining = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.borrowBooksGridView = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.availableBooksGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.borrowBooksGridView)).BeginInit();
             this.SuspendLayout();
-            // 
-            // stocksGridView
-            // 
-            this.stocksGridView.AllowUserToAddRows = false;
-            this.stocksGridView.AllowUserToDeleteRows = false;
-            this.stocksGridView.AllowUserToResizeColumns = false;
-            this.stocksGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.stocksGridView.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.stocksGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.stocksGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.stockSymbol,
-            this.stockValue,
-            this.valueChange});
-            this.stocksGridView.Location = new System.Drawing.Point(1206, 125);
-            this.stocksGridView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.stocksGridView.Name = "stocksGridView";
-            this.stocksGridView.ReadOnly = true;
-            this.stocksGridView.RowHeadersVisible = false;
-            this.stocksGridView.RowHeadersWidth = 62;
-            this.stocksGridView.RowTemplate.Height = 28;
-            this.stocksGridView.Size = new System.Drawing.Size(470, 654);
-            this.stocksGridView.TabIndex = 6;
-            // 
-            // stockSymbol
-            // 
-            this.stockSymbol.HeaderText = "Stock Symbol";
-            this.stockSymbol.MinimumWidth = 8;
-            this.stockSymbol.Name = "stockSymbol";
-            this.stockSymbol.ReadOnly = true;
-            // 
-            // stockValue
-            // 
-            this.stockValue.HeaderText = "Stock Value";
-            this.stockValue.MinimumWidth = 8;
-            this.stockValue.Name = "stockValue";
-            this.stockValue.ReadOnly = true;
-            // 
-            // valueChange
-            // 
-            this.valueChange.HeaderText = "Value Change";
-            this.valueChange.MinimumWidth = 8;
-            this.valueChange.Name = "valueChange";
-            this.valueChange.ReadOnly = true;
-            // 
-            // dateComboBox
-            // 
-            this.dateComboBox.FormattingEnabled = true;
-            this.dateComboBox.Items.AddRange(new object[] {
-            "One Day",
-            "Two Days",
-            "One Week",
-            "Two Weeks",
-            "One Month",
-            "Two Months"});
-            this.dateComboBox.Location = new System.Drawing.Point(1206, 826);
-            this.dateComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dateComboBox.Name = "dateComboBox";
-            this.dateComboBox.Size = new System.Drawing.Size(186, 28);
-            this.dateComboBox.TabIndex = 7;
-            this.dateComboBox.SelectedIndexChanged += new System.EventHandler(this.dateComboBox_SelectedIndexChanged);
             // 
             // WalletButton
             // 
@@ -111,18 +56,118 @@
             this.WalletButton.UseVisualStyleBackColor = false;
             this.WalletButton.Click += new System.EventHandler(this.WalletButton_Click);
             // 
-            // PortfolioButton
+            // BorrowedButton
             // 
-            this.PortfolioButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.PortfolioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PortfolioButton.Location = new System.Drawing.Point(1503, 952);
-            this.PortfolioButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.PortfolioButton.Name = "PortfolioButton";
-            this.PortfolioButton.Size = new System.Drawing.Size(173, 65);
-            this.PortfolioButton.TabIndex = 27;
-            this.PortfolioButton.Text = "Borrowed books";
-            this.PortfolioButton.UseVisualStyleBackColor = false;
-            this.PortfolioButton.Click += new System.EventHandler(this.PortfolioButton_Click);
+            this.BorrowedButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.BorrowedButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BorrowedButton.Location = new System.Drawing.Point(1503, 952);
+            this.BorrowedButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.BorrowedButton.Name = "BorrowedButton";
+            this.BorrowedButton.Size = new System.Drawing.Size(173, 65);
+            this.BorrowedButton.TabIndex = 27;
+            this.BorrowedButton.Text = "Borrowed books";
+            this.BorrowedButton.UseVisualStyleBackColor = false;
+            this.BorrowedButton.Click += new System.EventHandler(this.BorrowedButton_Click);
+            // 
+            // availableBooksGridView
+            // 
+            this.availableBooksGridView.AllowUserToAddRows = false;
+            this.availableBooksGridView.AllowUserToDeleteRows = false;
+            this.availableBooksGridView.AllowUserToResizeColumns = false;
+            this.availableBooksGridView.AllowUserToResizeRows = false;
+            this.availableBooksGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.availableBooksGridView.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.availableBooksGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.availableBooksGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.BookId,
+            this.BookTitle,
+            this.BookAuthor,
+            this.remaining,
+            this.cost});
+            this.availableBooksGridView.Location = new System.Drawing.Point(1503, 310);
+            this.availableBooksGridView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.availableBooksGridView.Name = "availableBooksGridView";
+            this.availableBooksGridView.ReadOnly = true;
+            this.availableBooksGridView.RowHeadersVisible = false;
+            this.availableBooksGridView.RowHeadersWidth = 62;
+            this.availableBooksGridView.RowTemplate.Height = 28;
+            this.availableBooksGridView.Size = new System.Drawing.Size(570, 520);
+            this.availableBooksGridView.TabIndex = 28;
+            // 
+            // BookId
+            // 
+            this.BookId.HeaderText = "BookId";
+            this.BookId.MinimumWidth = 8;
+            this.BookId.Name = "BookId";
+            this.BookId.ReadOnly = true;
+            this.BookId.Visible = false;
+            // 
+            // BookTitle
+            // 
+            this.BookTitle.HeaderText = "Title";
+            this.BookTitle.MinimumWidth = 8;
+            this.BookTitle.Name = "BookTitle";
+            this.BookTitle.ReadOnly = true;
+            // 
+            // BookAuthor
+            // 
+            this.BookAuthor.HeaderText = "Author";
+            this.BookAuthor.MinimumWidth = 8;
+            this.BookAuthor.Name = "BookAuthor";
+            this.BookAuthor.ReadOnly = true;
+            // 
+            // remaining
+            // 
+            this.remaining.HeaderText = "Days Remaining";
+            this.remaining.MinimumWidth = 8;
+            this.remaining.Name = "remaining";
+            this.remaining.ReadOnly = true;
+            // 
+            // cost
+            // 
+            this.cost.HeaderText = "Price";
+            this.cost.MinimumWidth = 8;
+            this.cost.Name = "cost";
+            this.cost.ReadOnly = true;
+            this.cost.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(1499, 237);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(160, 22);
+            this.label4.TabIndex = 33;
+            this.label4.Text = "Borrowed books:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(868, 237);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(281, 22);
+            this.label1.TabIndex = 35;
+            this.label1.Text = "Books available for borrowing:";
+            // 
+            // borrowBooksGridView
+            // 
+            this.borrowBooksGridView.AllowUserToAddRows = false;
+            this.borrowBooksGridView.AllowUserToDeleteRows = false;
+            this.borrowBooksGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.borrowBooksGridView.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.borrowBooksGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.borrowBooksGridView.Location = new System.Drawing.Point(872, 310);
+            this.borrowBooksGridView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.borrowBooksGridView.Name = "borrowBooksGridView";
+            this.borrowBooksGridView.ReadOnly = true;
+            this.borrowBooksGridView.RowHeadersVisible = false;
+            this.borrowBooksGridView.RowHeadersWidth = 62;
+            this.borrowBooksGridView.RowTemplate.Height = 28;
+            this.borrowBooksGridView.Size = new System.Drawing.Size(570, 520);
+            this.borrowBooksGridView.TabIndex = 34;
             // 
             // FrontPage
             // 
@@ -130,26 +175,34 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1924, 1199);
-            this.Controls.Add(this.PortfolioButton);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.borrowBooksGridView);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.availableBooksGridView);
+            this.Controls.Add(this.BorrowedButton);
             this.Controls.Add(this.WalletButton);
-            this.Controls.Add(this.dateComboBox);
-            this.Controls.Add(this.stocksGridView);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrontPage";
             this.Text = "Front Page";
             this.Load += new System.EventHandler(this.FrontPageV2_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.stocksGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.availableBooksGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.borrowBooksGridView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView stocksGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stockSymbol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stockValue;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valueChange;
-        private System.Windows.Forms.ComboBox dateComboBox;
         private System.Windows.Forms.Button WalletButton;
-        private System.Windows.Forms.Button PortfolioButton;
+        private System.Windows.Forms.Button BorrowedButton;
+        private System.Windows.Forms.DataGridView availableBooksGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookAuthor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn remaining;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cost;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView borrowBooksGridView;
     }
 }

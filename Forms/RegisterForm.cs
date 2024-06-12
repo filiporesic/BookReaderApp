@@ -15,6 +15,10 @@ namespace BookReaderApp.Forms
         public RegisterForm()
         {
             InitializeComponent();
+            FormBorderStyle = FormBorderStyle.FixedSingle;//ne želimo omogućiti korisnicima promjenu veličine prozora
+            WindowState = FormWindowState.Maximized;
+            MaximizeBox = false;
+            MinimizeBox = false;
         }
 
         private void backButton_Click(object sender, EventArgs e)

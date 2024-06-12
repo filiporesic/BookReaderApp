@@ -28,7 +28,116 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.availableBooksGridView = new System.Windows.Forms.DataGridView();
+            this.BookId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.remaining = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FrontPageButton = new System.Windows.Forms.Button();
+            this.WalletButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.availableBooksGridView)).BeginInit();
             this.SuspendLayout();
+            // 
+            // availableBooksGridView
+            // 
+            this.availableBooksGridView.AllowUserToAddRows = false;
+            this.availableBooksGridView.AllowUserToDeleteRows = false;
+            this.availableBooksGridView.AllowUserToResizeColumns = false;
+            this.availableBooksGridView.AllowUserToResizeRows = false;
+            this.availableBooksGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.availableBooksGridView.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.availableBooksGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.availableBooksGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.BookId,
+            this.BookTitle,
+            this.BookAuthor,
+            this.remaining,
+            this.cost});
+            this.availableBooksGridView.Location = new System.Drawing.Point(647, 195);
+            this.availableBooksGridView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.availableBooksGridView.Name = "availableBooksGridView";
+            this.availableBooksGridView.ReadOnly = true;
+            this.availableBooksGridView.RowHeadersVisible = false;
+            this.availableBooksGridView.RowHeadersWidth = 62;
+            this.availableBooksGridView.RowTemplate.Height = 28;
+            this.availableBooksGridView.Size = new System.Drawing.Size(570, 520);
+            this.availableBooksGridView.TabIndex = 15;
+            // 
+            // BookId
+            // 
+            this.BookId.HeaderText = "BookId";
+            this.BookId.MinimumWidth = 8;
+            this.BookId.Name = "BookId";
+            this.BookId.ReadOnly = true;
+            this.BookId.Visible = false;
+            // 
+            // BookTitle
+            // 
+            this.BookTitle.HeaderText = "Title";
+            this.BookTitle.MinimumWidth = 8;
+            this.BookTitle.Name = "BookTitle";
+            this.BookTitle.ReadOnly = true;
+            // 
+            // BookAuthor
+            // 
+            this.BookAuthor.HeaderText = "Author";
+            this.BookAuthor.MinimumWidth = 8;
+            this.BookAuthor.Name = "BookAuthor";
+            this.BookAuthor.ReadOnly = true;
+            // 
+            // remaining
+            // 
+            this.remaining.HeaderText = "Days Remaining";
+            this.remaining.MinimumWidth = 8;
+            this.remaining.Name = "remaining";
+            this.remaining.ReadOnly = true;
+            // 
+            // cost
+            // 
+            this.cost.HeaderText = "Price";
+            this.cost.MinimumWidth = 8;
+            this.cost.Name = "cost";
+            this.cost.ReadOnly = true;
+            this.cost.Visible = false;
+            // 
+            // FrontPageButton
+            // 
+            this.FrontPageButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.FrontPageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FrontPageButton.Location = new System.Drawing.Point(647, 843);
+            this.FrontPageButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.FrontPageButton.Name = "FrontPageButton";
+            this.FrontPageButton.Size = new System.Drawing.Size(176, 66);
+            this.FrontPageButton.TabIndex = 30;
+            this.FrontPageButton.Text = "Front Page";
+            this.FrontPageButton.UseVisualStyleBackColor = false;
+            this.FrontPageButton.Click += new System.EventHandler(this.FrontPageButton_Click);
+            // 
+            // WalletButton
+            // 
+            this.WalletButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.WalletButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WalletButton.Location = new System.Drawing.Point(1044, 844);
+            this.WalletButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.WalletButton.Name = "WalletButton";
+            this.WalletButton.Size = new System.Drawing.Size(173, 65);
+            this.WalletButton.TabIndex = 31;
+            this.WalletButton.Text = "Wallet";
+            this.WalletButton.UseVisualStyleBackColor = false;
+            this.WalletButton.Click += new System.EventHandler(this.WalletButton_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(643, 134);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(190, 22);
+            this.label4.TabIndex = 32;
+            this.label4.Text = "Select book to read:";
             // 
             // Borrowed
             // 
@@ -36,12 +145,29 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1924, 1199);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.WalletButton);
+            this.Controls.Add(this.FrontPageButton);
+            this.Controls.Add(this.availableBooksGridView);
             this.Name = "Borrowed";
             this.Text = "Borrowed";
+            this.Load += new System.EventHandler(this.Borrowed_Load_1);
+            ((System.ComponentModel.ISupportInitialize)(this.availableBooksGridView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.DataGridView availableBooksGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookAuthor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn remaining;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cost;
+        private System.Windows.Forms.Button FrontPageButton;
+        private System.Windows.Forms.Button WalletButton;
+        private System.Windows.Forms.Label label4;
     }
 }

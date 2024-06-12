@@ -48,13 +48,13 @@ namespace BookReaderApp
         public static List<Book> GetBooks()
         {
             List<Book> books = new List<Book>();
-            string query = "SELECT bookId, Title, Author, Price FROM Books";
+            string query = "SELECT bookId, Title, Author, Other, Price FROM Books";
 
             var dt = DatabaseService.SelectData(query);
 
             foreach (DataRow row in dt.Rows)
             {
-                books.Add(new Book((int)row["bookId"], (string)row["Title"], (string)row["Author"], (decimal)row["Price"]));
+                books.Add(new Book((int)row["bookId"], (string)row["Title"], (string)row["Author"],(string)row["Other"], (decimal)row["Price"]));
             }
 
             return books;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookReaderApp.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -45,65 +46,39 @@ namespace BookReaderApp
 
         private void FrontPageV2_Load(object sender, EventArgs e)
         {
-            dateComboBox.SelectedIndex = 0;
-            DateTime date = DateTime.UtcNow.Date;
-            DateTime yesterday = date.AddDays(-1);
-            //var stocks = BrokerService.GetAllStocksByDate(date);
-            /*foreach ( var stock in stocks )
+            availableBooksGridView.Rows.Clear();
+
+            var borrowedBooks = WalletService.GetBorrowedBooks(userId);
+            var uniqueBooks = new Dictionary<int, (int, string, string, int)>();
+
+            foreach (var book in borrowedBooks)
             {
-                Stock yesterdayStock = BrokerService.GetStockInfo(stock.Symbol, yesterday);
-                decimal difference = stock.Price - yesterdayStock.Price;
-                string[] row = {stock.Symbol, stock.Price.ToString(),  difference.ToString()};
-                int rowIndex = stocksGridView.Rows.Add(row);
-                DataGridViewCell cell = stocksGridView.Rows[rowIndex].Cells[2];
+                var daysRemaining = WalletService.GetDaysRemaining(book.Item1, userId);
 
-                cell.Style.ForeColor = difference > 0 ? Color.Green : (difference < 0 ? Color.Red : Color.Black);
-            }*/
-        }
+                if (uniqueBooks.ContainsKey(book.Item1))
+                {
+                    if (uniqueBooks[book.Item1].Item4 < daysRemaining)
+                    {
+                        uniqueBooks[book.Item1] = (book.Item1, book.Item2, book.Item3, daysRemaining);
+                    }
+                }
+                else
+                {
+                    uniqueBooks.Add(book.Item1, (book.Item1, book.Item2, book.Item3, daysRemaining));
+                }
+            }
 
-        private void dateComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //DateTime today = DateTime.UtcNow.Date;
-            //DateTime date = DateTime.UtcNow.Date.AddDays(-1);
-            //var stocks = BrokerService.GetAllStocksByDate(today);
-            //stocksGridView.Rows.Clear();
-            
-            //if (dateComboBox.SelectedIndex == 0)
-            //{
-            //    date = today.AddDays(-1);
-            //}
-            //if (dateComboBox.SelectedIndex == 1)
-            //{
-            //    date = today.AddDays(-2);
-            //}
-            //if (dateComboBox.SelectedIndex == 2)
-            //{
-            //    date = today.AddDays(-7);
-            //}
-            //if (dateComboBox.SelectedIndex == 3)
-            //{
-            //    date = today.AddDays(-14);
-            //}
-            //if (dateComboBox.SelectedIndex == 3)
-            //{
-            //    date = today.AddMonths(-1);
-            //}
-            //if (dateComboBox.SelectedIndex == 4)
-            //{
-            //    date = today.AddMonths(-2);
-            //}
+            foreach (var book in uniqueBooks.Values)
+            {
+                object[] row = { book.Item1, book.Item2, book.Item3, WalletService.GetDaysRemaining(book.Item1, userId), BookService.GetBookPrice(book.Item1) };
+                availableBooksGridView.Rows.Add(row);
+            }
 
+            var allBooks = WalletService.GetBooks();
 
-            //foreach (var stock in stocks)
-            //{
-            //    Stock lastStock = BrokerService.GetStockInfo(stock.Symbol, date);
-            //    decimal difference = stock.Price - lastStock.Price;
-            //    string[] row = { stock.Symbol, stock.Price.ToString(), difference.ToString() };
-            //    int rowIndex = stocksGridView.Rows.Add(row);
-            //    DataGridViewCell cell = stocksGridView.Rows[rowIndex].Cells[2];
-
-            //    cell.Style.ForeColor = difference > 0 ? Color.Green : (difference < 0 ? Color.Red : Color.Black);
-            //}
+            borrowBooksGridView.DataSource = allBooks;
+            borrowBooksGridView.Columns["BookId"].Visible = false;
+            borrowBooksGridView.Columns["Other"].Visible = false;
         }
 
 
@@ -120,12 +95,14 @@ namespace BookReaderApp
             Close();
         }
 
-        private void PortfolioButton_Click(object sender, EventArgs e)
+        private void BorrowedButton_Click(object sender, EventArgs e)
         {
-            //Portfolio portfolio = new Portfolio(userId);
-            //Hide();
-            //portfolio.ShowDialog();
-            //Close();
+            Borrowed wallet = new Borrowed(userId);
+            Hide();
+            wallet.ShowDialog();
+            Close();
         }
+
+
     }
 }
