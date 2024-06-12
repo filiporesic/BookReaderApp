@@ -313,8 +313,14 @@
     </None>
     <None Include="Books\AS.pdf" />
     <None Include="Books\difraf.pdf" />
+    <None Include="Books\intraf.pdf" />
+    <None Include="Books\KOMB.pdf" />
+    <None Include="Books\KOMPA.pdf" />
     <None Include="Books\matstat.pdf" />
+    <None Include="Books\ML_vjezbe.pdf" />
+    <None Include="Books\uopt_zadaci.pdf" />
     <None Include="Books\utb.pdf" />
+    <None Include="Books\VrNiz.hilbert.pdf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
