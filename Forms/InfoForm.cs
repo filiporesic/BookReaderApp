@@ -38,7 +38,14 @@ namespace BookReaderApp
             authorLabel.Text += author;
             titleLabel.Text += title;
             genreLabel.Text += bookDetails.Genre;
-            releaseYearLabel.Text += bookDetails.ReleaseYear.ToString();
+            if(bookDetails.ReleaseYear == 0)
+            {
+                releaseYearLabel.Text += "Unknown";
+            }
+            else
+            {
+                releaseYearLabel.Text += bookDetails.ReleaseYear.ToString();
+            }
             descriptionLabel.Text += bookDetails.Description;
         }
 

@@ -267,7 +267,7 @@ namespace BookReaderApp
             // 
             this.depositButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.depositButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.depositButton.Location = new System.Drawing.Point(1026, 92);
+            this.depositButton.Location = new System.Drawing.Point(1063, 92);
             this.depositButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.depositButton.Name = "depositButton";
             this.depositButton.Size = new System.Drawing.Size(146, 43);
@@ -280,7 +280,7 @@ namespace BookReaderApp
             // 
             this.FrontPageButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.FrontPageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FrontPageButton.Location = new System.Drawing.Point(1026, 189);
+            this.FrontPageButton.Location = new System.Drawing.Point(1063, 189);
             this.FrontPageButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.FrontPageButton.Name = "FrontPageButton";
             this.FrontPageButton.Size = new System.Drawing.Size(146, 43);
@@ -293,7 +293,7 @@ namespace BookReaderApp
             // 
             this.extendButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.extendButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.extendButton.Location = new System.Drawing.Point(505, 630);
+            this.extendButton.Location = new System.Drawing.Point(495, 593);
             this.extendButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.extendButton.Name = "extendButton";
             this.extendButton.Size = new System.Drawing.Size(112, 32);
@@ -306,7 +306,7 @@ namespace BookReaderApp
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(501, 538);
+            this.label3.Location = new System.Drawing.Point(642, 542);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(223, 22);
@@ -321,7 +321,7 @@ namespace BookReaderApp
             "5 days",
             "15 days",
             "1 month"});
-            this.extendComboBox.Location = new System.Drawing.Point(506, 576);
+            this.extendComboBox.Location = new System.Drawing.Point(646, 593);
             this.extendComboBox.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.extendComboBox.Name = "extendComboBox";
             this.extendComboBox.Size = new System.Drawing.Size(111, 21);
@@ -332,7 +332,7 @@ namespace BookReaderApp
             // 
             this.extendCostLabel.AutoSize = true;
             this.extendCostLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.extendCostLabel.Location = new System.Drawing.Point(502, 605);
+            this.extendCostLabel.Location = new System.Drawing.Point(501, 542);
             this.extendCostLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.extendCostLabel.Name = "extendCostLabel";
             this.extendCostLabel.Size = new System.Drawing.Size(74, 22);
