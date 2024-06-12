@@ -102,6 +102,15 @@ namespace BookReaderApp
             borrowBooksGridView.ClearSelection();
             availableBooksGridView.ClearSelection();
 
+            if (!genreComboBox.Items.Contains("All")) genreComboBox.Items.Add("All");
+            foreach (var book in allBooks)
+            {
+                if (book.Other.Genre != null && !genreComboBox.Items.Contains(book.Other.Genre))
+                {
+                    genreComboBox.Items.Add(book.Other.Genre);
+                }
+            }
+
         }
 
         private void DepositButton_Click(object sender, EventArgs e)
@@ -246,6 +255,28 @@ namespace BookReaderApp
                 }
             }
             catch { }
+        }
+
+        private void genreComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedGenre = genreComboBox.SelectedItem.ToString();
+            if (selectedGenre == "All")
+            {
+                var allBooks = WalletService.GetBooks();
+
+                borrowBooksGridView.DataSource = allBooks;
+                borrowBooksGridView.Columns["BookId"].Visible = false;
+                borrowBooksGridView.Columns["Other"].Visible = false;
+            }
+            else
+            {
+                var allBooks = WalletService.GetBooks();
+                List<Book> filterbooks = allBooks.Where(x => x.Other.Genre == selectedGenre).ToList();
+
+                borrowBooksGridView.DataSource = filterbooks;
+                borrowBooksGridView.Columns["BookId"].Visible = false;
+                borrowBooksGridView.Columns["Other"].Visible = false;
+            }
         }
     }
 

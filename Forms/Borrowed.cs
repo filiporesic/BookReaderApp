@@ -55,6 +55,17 @@ namespace BookReaderApp.Forms
                 object[] row = { book.Item1.Author, book.Item1.Title, WalletService.GetDaysRemaining(book.Item1.BookId, userId), BookService.GetBookPrice(book.Item1.BookId) };
                 availableBooksGridView.Rows.Add(row);
             }
+
+            var allBooks = WalletService.GetBooks();
+
+            if (!genreComboBox.Items.Contains("All")) genreComboBox.Items.Add("All");
+            foreach (var book in allBooks)
+            {
+                if (book.Other.Genre != null && !genreComboBox.Items.Contains(book.Other.Genre))
+                {
+                    genreComboBox.Items.Add(book.Other.Genre);
+                }
+            }
         }
 
         private void FrontPageButton_Click(object sender, EventArgs e)
@@ -71,6 +82,74 @@ namespace BookReaderApp.Forms
             Hide();
             wallet.ShowDialog();
             Close();
+        }
+
+        private void genreComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedGenre = genreComboBox.SelectedItem.ToString();
+            if (selectedGenre == "All")
+            {
+                availableBooksGridView.Rows.Clear();
+
+                var borrowedBooks = WalletService.GetBorrowedBooks(userId);
+                var uniqueBooks = new Dictionary<int, (Book, int)>();
+
+                foreach (var book in borrowedBooks)
+                {
+                    var daysRemaining = WalletService.GetDaysRemaining(book.BookId, userId);
+
+                    if (uniqueBooks.ContainsKey(book.BookId))
+                    {
+                        if (uniqueBooks[book.BookId].Item2 < daysRemaining)
+                        {
+                            uniqueBooks[book.BookId] = (book, daysRemaining);
+                        }
+                    }
+                    else
+                    {
+                        uniqueBooks.Add(book.BookId, (book, daysRemaining));
+                    }
+                }
+
+                foreach (var book in uniqueBooks.Values)
+                {
+                    object[] row = { book.Item1.Author, book.Item1.Title, WalletService.GetDaysRemaining(book.Item1.BookId, userId), BookService.GetBookPrice(book.Item1.BookId) };
+                    availableBooksGridView.Rows.Add(row);
+                }
+            }
+            else
+            {
+                availableBooksGridView.Rows.Clear();
+
+                var borrowedBooks = WalletService.GetBorrowedBooks(userId);
+                var uniqueBooks = new Dictionary<int, (Book, int)>();
+
+                foreach (var book in borrowedBooks)
+                {
+                    var daysRemaining = WalletService.GetDaysRemaining(book.BookId, userId);
+
+                    if (uniqueBooks.ContainsKey(book.BookId))
+                    {
+                        if (uniqueBooks[book.BookId].Item2 < daysRemaining && book.Other.Genre == selectedGenre)
+                        {
+                            uniqueBooks[book.BookId] = (book, daysRemaining);
+                        }
+                    }
+                    else
+                    {
+                        uniqueBooks.Add(book.BookId, (book, daysRemaining));
+                    }
+                }
+
+                foreach (var book in uniqueBooks.Values)
+                {
+                    object[] row = { book.Item1.Author, book.Item1.Title, WalletService.GetDaysRemaining(book.Item1.BookId, userId), BookService.GetBookPrice(book.Item1.BookId) };
+                    if (book.Item1.Other.Genre == selectedGenre)
+                    {
+                        availableBooksGridView.Rows.Add(row);
+                    }
+                }
+            }
         }
     }
 }

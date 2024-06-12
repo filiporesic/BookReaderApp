@@ -37,6 +37,8 @@
             this.FrontPageButton = new System.Windows.Forms.Button();
             this.WalletButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.genreComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.availableBooksGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -139,12 +141,33 @@
             this.label4.TabIndex = 32;
             this.label4.Text = "Select book to read:";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(1284, 267);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(199, 22);
+            this.label2.TabIndex = 39;
+            this.label2.Text = "Filer books by genre:";
+            // 
+            // genreComboBox
+            // 
+            this.genreComboBox.FormattingEnabled = true;
+            this.genreComboBox.Location = new System.Drawing.Point(1288, 305);
+            this.genreComboBox.Name = "genreComboBox";
+            this.genreComboBox.Size = new System.Drawing.Size(217, 28);
+            this.genreComboBox.TabIndex = 38;
+            this.genreComboBox.SelectedIndexChanged += new System.EventHandler(this.genreComboBox_SelectedIndexChanged);
+            // 
             // Borrowed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1924, 1199);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.genreComboBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.WalletButton);
             this.Controls.Add(this.FrontPageButton);
@@ -169,5 +192,7 @@
         private System.Windows.Forms.Button FrontPageButton;
         private System.Windows.Forms.Button WalletButton;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox genreComboBox;
     }
 }

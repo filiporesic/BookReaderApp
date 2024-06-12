@@ -31,7 +31,7 @@ namespace BookReaderApp
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridTransactions = new System.Windows.Forms.DataGridView();
             this.walletBalance = new System.Windows.Forms.Label();
             this.borrowBooksGridView = new System.Windows.Forms.DataGridView();
@@ -55,6 +55,8 @@ namespace BookReaderApp
             this.label3 = new System.Windows.Forms.Label();
             this.extendComboBox = new System.Windows.Forms.ComboBox();
             this.extendCostLabel = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.genreComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridTransactions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.borrowBooksGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.availableBooksGridView)).BeginInit();
@@ -62,8 +64,8 @@ namespace BookReaderApp
             // 
             // dataGridTransactions
             // 
-            dataGridViewCellStyle2.NullValue = null;
-            this.dataGridTransactions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.NullValue = null;
+            this.dataGridTransactions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridTransactions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridTransactions.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.dataGridTransactions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -319,12 +321,33 @@ namespace BookReaderApp
             this.extendCostLabel.TabIndex = 33;
             this.extendCostLabel.Text = "Cost: 0";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(1221, 544);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(289, 22);
+            this.label5.TabIndex = 39;
+            this.label5.Text = "Filer books to borrow by genre:";
+            // 
+            // genreComboBox
+            // 
+            this.genreComboBox.FormattingEnabled = true;
+            this.genreComboBox.Location = new System.Drawing.Point(1225, 582);
+            this.genreComboBox.Name = "genreComboBox";
+            this.genreComboBox.Size = new System.Drawing.Size(285, 28);
+            this.genreComboBox.TabIndex = 38;
+            this.genreComboBox.SelectedIndexChanged += new System.EventHandler(this.genreComboBox_SelectedIndexChanged);
+            // 
             // WalletForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1924, 1199);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.genreComboBox);
             this.Controls.Add(this.extendCostLabel);
             this.Controls.Add(this.extendComboBox);
             this.Controls.Add(this.label3);
@@ -380,6 +403,8 @@ namespace BookReaderApp
         private DataGridViewTextBoxColumn BookAuthor;
         private DataGridViewTextBoxColumn remaining;
         private DataGridViewTextBoxColumn cost;
+        private Label label5;
+        private ComboBox genreComboBox;
     }
 }
 
