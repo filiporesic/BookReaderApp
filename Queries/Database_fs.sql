@@ -33,6 +33,7 @@ CREATE TABLE Transactions (
 
 CREATE EXTENSION HSTORE;
 CREATE TABLE BookLocations (BookLocation hstore);
+CREATE INDEX idx_BookLocations ON booklocations USING GiST(BookLocation);
 
 INSERT INTO BookLocations VALUES 
 ('1 => ".\\Books\\matstat.pdf"'),
