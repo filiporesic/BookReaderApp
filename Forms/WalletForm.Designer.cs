@@ -31,7 +31,8 @@ namespace BookReaderApp
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WalletForm));
             this.dataGridTransactions = new System.Windows.Forms.DataGridView();
             this.walletBalance = new System.Windows.Forms.Label();
             this.borrowBooksGridView = new System.Windows.Forms.DataGridView();
@@ -42,6 +43,11 @@ namespace BookReaderApp
             this.buyResultLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.availableBooksGridView = new System.Windows.Forms.DataGridView();
+            this.BookId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.remaining = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sellResultLabel = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.depositButton = new System.Windows.Forms.Button();
@@ -52,11 +58,6 @@ namespace BookReaderApp
             this.extendCostLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.genreComboBox = new System.Windows.Forms.ComboBox();
-            this.cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.remaining = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridTransactions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.borrowBooksGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.availableBooksGridView)).BeginInit();
@@ -64,17 +65,19 @@ namespace BookReaderApp
             // 
             // dataGridTransactions
             // 
-            dataGridViewCellStyle6.NullValue = null;
-            this.dataGridTransactions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridTransactions.AllowUserToResizeColumns = false;
+            this.dataGridTransactions.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.NullValue = null;
+            this.dataGridTransactions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridTransactions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridTransactions.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.dataGridTransactions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridTransactions.Location = new System.Drawing.Point(408, 250);
-            this.dataGridTransactions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dataGridTransactions.Location = new System.Drawing.Point(57, 92);
+            this.dataGridTransactions.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.dataGridTransactions.Name = "dataGridTransactions";
             this.dataGridTransactions.RowHeadersVisible = false;
             this.dataGridTransactions.RowHeadersWidth = 62;
-            this.dataGridTransactions.Size = new System.Drawing.Size(1426, 216);
+            this.dataGridTransactions.Size = new System.Drawing.Size(951, 140);
             this.dataGridTransactions.TabIndex = 0;
             // 
             // walletBalance
@@ -82,7 +85,8 @@ namespace BookReaderApp
             this.walletBalance.AutoSize = true;
             this.walletBalance.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.walletBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.walletBalance.Location = new System.Drawing.Point(1678, 218);
+            this.walletBalance.Location = new System.Drawing.Point(852, 41);
+            this.walletBalance.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.walletBalance.Name = "walletBalance";
             this.walletBalance.Size = new System.Drawing.Size(156, 24);
             this.walletBalance.TabIndex = 2;
@@ -92,25 +96,28 @@ namespace BookReaderApp
             // 
             this.borrowBooksGridView.AllowUserToAddRows = false;
             this.borrowBooksGridView.AllowUserToDeleteRows = false;
+            this.borrowBooksGridView.AllowUserToResizeColumns = false;
+            this.borrowBooksGridView.AllowUserToResizeRows = false;
             this.borrowBooksGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.borrowBooksGridView.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.borrowBooksGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.borrowBooksGridView.Location = new System.Drawing.Point(408, 544);
-            this.borrowBooksGridView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.borrowBooksGridView.Location = new System.Drawing.Point(57, 305);
+            this.borrowBooksGridView.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.borrowBooksGridView.Name = "borrowBooksGridView";
             this.borrowBooksGridView.ReadOnly = true;
             this.borrowBooksGridView.RowHeadersVisible = false;
             this.borrowBooksGridView.RowHeadersWidth = 62;
             this.borrowBooksGridView.RowTemplate.Height = 28;
-            this.borrowBooksGridView.Size = new System.Drawing.Size(570, 251);
+            this.borrowBooksGridView.Size = new System.Drawing.Size(380, 163);
             this.borrowBooksGridView.TabIndex = 3;
-            this.borrowBooksGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BorrowBooksGridView_CellContentClick);
+            this.borrowBooksGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BorrowBooksGridView_CellClick);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(237, 509);
+            this.label1.Location = new System.Drawing.Point(53, 268);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(281, 22);
             this.label1.TabIndex = 4;
@@ -120,7 +127,8 @@ namespace BookReaderApp
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(1030, 544);
+            this.label2.Location = new System.Drawing.Point(687, 354);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 22);
             this.label2.TabIndex = 6;
@@ -129,10 +137,10 @@ namespace BookReaderApp
             // 
             this.borrowButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.borrowButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.borrowButton.Location = new System.Drawing.Point(1035, 605);
-            this.borrowButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.borrowButton.Location = new System.Drawing.Point(505, 349);
+            this.borrowButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.borrowButton.Name = "borrowButton";
-            this.borrowButton.Size = new System.Drawing.Size(141, 50);
+            this.borrowButton.Size = new System.Drawing.Size(111, 32);
             this.borrowButton.TabIndex = 10;
             this.borrowButton.Text = "BORROW";
             this.borrowButton.UseVisualStyleBackColor = false;
@@ -142,7 +150,8 @@ namespace BookReaderApp
             // 
             this.costLabel.AutoSize = true;
             this.costLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.costLabel.Location = new System.Drawing.Point(1029, 544);
+            this.costLabel.Location = new System.Drawing.Point(501, 305);
+            this.costLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.costLabel.Name = "costLabel";
             this.costLabel.Size = new System.Drawing.Size(74, 22);
             this.costLabel.TabIndex = 11;
@@ -152,7 +161,8 @@ namespace BookReaderApp
             // 
             this.buyResultLabel.AutoSize = true;
             this.buyResultLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buyResultLabel.Location = new System.Drawing.Point(1238, 645);
+            this.buyResultLabel.Location = new System.Drawing.Point(825, 419);
+            this.buyResultLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.buyResultLabel.Name = "buyResultLabel";
             this.buyResultLabel.Size = new System.Drawing.Size(0, 22);
             this.buyResultLabel.TabIndex = 12;
@@ -162,7 +172,8 @@ namespace BookReaderApp
             this.label4.AutoSize = true;
             this.label4.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(237, 834);
+            this.label4.Location = new System.Drawing.Point(53, 494);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(361, 22);
             this.label4.TabIndex = 13;
@@ -172,6 +183,8 @@ namespace BookReaderApp
             // 
             this.availableBooksGridView.AllowUserToAddRows = false;
             this.availableBooksGridView.AllowUserToDeleteRows = false;
+            this.availableBooksGridView.AllowUserToResizeColumns = false;
+            this.availableBooksGridView.AllowUserToResizeRows = false;
             this.availableBooksGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.availableBooksGridView.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.availableBooksGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -181,22 +194,60 @@ namespace BookReaderApp
             this.BookAuthor,
             this.remaining,
             this.cost});
-            this.availableBooksGridView.Location = new System.Drawing.Point(408, 870);
-            this.availableBooksGridView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.availableBooksGridView.Location = new System.Drawing.Point(57, 538);
+            this.availableBooksGridView.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.availableBooksGridView.Name = "availableBooksGridView";
             this.availableBooksGridView.ReadOnly = true;
             this.availableBooksGridView.RowHeadersVisible = false;
             this.availableBooksGridView.RowHeadersWidth = 62;
             this.availableBooksGridView.RowTemplate.Height = 28;
-            this.availableBooksGridView.Size = new System.Drawing.Size(570, 191);
+            this.availableBooksGridView.Size = new System.Drawing.Size(380, 124);
             this.availableBooksGridView.TabIndex = 14;
-            this.availableBooksGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.availableBooksGridView_CellContentClick);
+            this.availableBooksGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.availableBooksGridView_CellClick);
+            // 
+            // BookId
+            // 
+            this.BookId.HeaderText = "BookId";
+            this.BookId.MinimumWidth = 8;
+            this.BookId.Name = "BookId";
+            this.BookId.ReadOnly = true;
+            this.BookId.Visible = false;
+            // 
+            // BookTitle
+            // 
+            this.BookTitle.HeaderText = "Title";
+            this.BookTitle.MinimumWidth = 8;
+            this.BookTitle.Name = "BookTitle";
+            this.BookTitle.ReadOnly = true;
+            // 
+            // BookAuthor
+            // 
+            this.BookAuthor.HeaderText = "Author";
+            this.BookAuthor.MinimumWidth = 8;
+            this.BookAuthor.Name = "BookAuthor";
+            this.BookAuthor.ReadOnly = true;
+            // 
+            // remaining
+            // 
+            this.remaining.HeaderText = "Days Remaining";
+            this.remaining.MinimumWidth = 8;
+            this.remaining.Name = "remaining";
+            this.remaining.ReadOnly = true;
+            // 
+            // cost
+            // 
+            this.cost.HeaderText = "Price";
+            this.cost.MinimumWidth = 8;
+            this.cost.Name = "cost";
+            this.cost.ReadOnly = true;
+            this.cost.Visible = false;
             // 
             // sellResultLabel
             // 
             this.sellResultLabel.AutoSize = true;
             this.sellResultLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sellResultLabel.Location = new System.Drawing.Point(1233, 998);
+            this.sellResultLabel.Location = new System.Drawing.Point(822, 649);
+            this.sellResultLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.sellResultLabel.Name = "sellResultLabel";
             this.sellResultLabel.Size = new System.Drawing.Size(0, 22);
             this.sellResultLabel.TabIndex = 21;
@@ -205,7 +256,8 @@ namespace BookReaderApp
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(237, 218);
+            this.label7.Location = new System.Drawing.Point(53, 52);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(221, 22);
             this.label7.TabIndex = 23;
@@ -215,10 +267,10 @@ namespace BookReaderApp
             // 
             this.depositButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.depositButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.depositButton.Location = new System.Drawing.Point(408, 1098);
-            this.depositButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.depositButton.Location = new System.Drawing.Point(1026, 92);
+            this.depositButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.depositButton.Name = "depositButton";
-            this.depositButton.Size = new System.Drawing.Size(219, 66);
+            this.depositButton.Size = new System.Drawing.Size(146, 43);
             this.depositButton.TabIndex = 24;
             this.depositButton.Text = "Deposit";
             this.depositButton.UseVisualStyleBackColor = false;
@@ -228,10 +280,10 @@ namespace BookReaderApp
             // 
             this.FrontPageButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.FrontPageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FrontPageButton.Location = new System.Drawing.Point(1377, 1098);
-            this.FrontPageButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.FrontPageButton.Location = new System.Drawing.Point(1026, 189);
+            this.FrontPageButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.FrontPageButton.Name = "FrontPageButton";
-            this.FrontPageButton.Size = new System.Drawing.Size(176, 66);
+            this.FrontPageButton.Size = new System.Drawing.Size(146, 43);
             this.FrontPageButton.TabIndex = 29;
             this.FrontPageButton.Text = "Front Page";
             this.FrontPageButton.UseVisualStyleBackColor = false;
@@ -241,10 +293,10 @@ namespace BookReaderApp
             // 
             this.extendButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.extendButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.extendButton.Location = new System.Drawing.Point(1033, 970);
-            this.extendButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.extendButton.Location = new System.Drawing.Point(505, 630);
+            this.extendButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.extendButton.Name = "extendButton";
-            this.extendButton.Size = new System.Drawing.Size(141, 50);
+            this.extendButton.Size = new System.Drawing.Size(112, 32);
             this.extendButton.TabIndex = 30;
             this.extendButton.Text = "EXTEND";
             this.extendButton.UseVisualStyleBackColor = false;
@@ -254,7 +306,8 @@ namespace BookReaderApp
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(1022, 870);
+            this.label3.Location = new System.Drawing.Point(501, 538);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(223, 22);
             this.label3.TabIndex = 31;
@@ -268,10 +321,10 @@ namespace BookReaderApp
             "5 days",
             "15 days",
             "1 month"});
-            this.extendComboBox.Location = new System.Drawing.Point(1035, 921);
-            this.extendComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.extendComboBox.Location = new System.Drawing.Point(506, 576);
+            this.extendComboBox.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.extendComboBox.Name = "extendComboBox";
-            this.extendComboBox.Size = new System.Drawing.Size(140, 28);
+            this.extendComboBox.Size = new System.Drawing.Size(111, 21);
             this.extendComboBox.TabIndex = 32;
             this.extendComboBox.SelectedIndexChanged += new System.EventHandler(this.ExtendComboBox_SelectedIndexChanged);
             // 
@@ -279,7 +332,8 @@ namespace BookReaderApp
             // 
             this.extendCostLabel.AutoSize = true;
             this.extendCostLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.extendCostLabel.Location = new System.Drawing.Point(1221, 927);
+            this.extendCostLabel.Location = new System.Drawing.Point(502, 605);
+            this.extendCostLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.extendCostLabel.Name = "extendCostLabel";
             this.extendCostLabel.Size = new System.Drawing.Size(74, 22);
             this.extendCostLabel.TabIndex = 33;
@@ -289,7 +343,8 @@ namespace BookReaderApp
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(1221, 544);
+            this.label5.Location = new System.Drawing.Point(642, 305);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(289, 22);
             this.label5.TabIndex = 39;
@@ -298,55 +353,19 @@ namespace BookReaderApp
             // genreComboBox
             // 
             this.genreComboBox.FormattingEnabled = true;
-            this.genreComboBox.Location = new System.Drawing.Point(1225, 605);
+            this.genreComboBox.Location = new System.Drawing.Point(646, 355);
+            this.genreComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.genreComboBox.Name = "genreComboBox";
-            this.genreComboBox.Size = new System.Drawing.Size(285, 28);
+            this.genreComboBox.Size = new System.Drawing.Size(191, 21);
             this.genreComboBox.TabIndex = 38;
             this.genreComboBox.SelectedIndexChanged += new System.EventHandler(this.genreComboBox_SelectedIndexChanged);
             // 
-            // cost
-            // 
-            this.cost.HeaderText = "Price";
-            this.cost.MinimumWidth = 8;
-            this.cost.Name = "cost";
-            this.cost.ReadOnly = true;
-            this.cost.Visible = false;
-            // 
-            // remaining
-            // 
-            this.remaining.HeaderText = "Days Remaining";
-            this.remaining.MinimumWidth = 8;
-            this.remaining.Name = "remaining";
-            this.remaining.ReadOnly = true;
-            // 
-            // BookAuthor
-            // 
-            this.BookAuthor.HeaderText = "Author";
-            this.BookAuthor.MinimumWidth = 8;
-            this.BookAuthor.Name = "BookAuthor";
-            this.BookAuthor.ReadOnly = true;
-            // 
-            // BookTitle
-            // 
-            this.BookTitle.HeaderText = "Title";
-            this.BookTitle.MinimumWidth = 8;
-            this.BookTitle.Name = "BookTitle";
-            this.BookTitle.ReadOnly = true;
-            // 
-            // BookId
-            // 
-            this.BookId.HeaderText = "BookId";
-            this.BookId.MinimumWidth = 8;
-            this.BookId.Name = "BookId";
-            this.BookId.ReadOnly = true;
-            this.BookId.Visible = false;
-            // 
             // WalletForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1924, 1199);
+            this.ClientSize = new System.Drawing.Size(1144, 773);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.genreComboBox);
             this.Controls.Add(this.extendCostLabel);
@@ -367,7 +386,8 @@ namespace BookReaderApp
             this.Controls.Add(this.borrowBooksGridView);
             this.Controls.Add(this.walletBalance);
             this.Controls.Add(this.dataGridTransactions);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "WalletForm";
             this.Text = "Wallet";
             this.Load += new System.EventHandler(this.WalletForm_Load);

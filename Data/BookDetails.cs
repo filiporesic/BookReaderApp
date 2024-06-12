@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookReaderApp.Data
+namespace BookReaderApp
 {
-    internal class BookDetails
+    public class BookDetails
     {
         public string Genre { get; set; }
         public int ReleaseYear { get; set; }
