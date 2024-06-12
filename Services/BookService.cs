@@ -20,7 +20,7 @@ namespace BookReaderApp
             if (dt.Rows.Count > 0)
             {
                 DataRow row = dt.Rows[0];
-                Book book = new Book(/*(int)row["userId"], (decimal)row["amount"]*/);
+                Book book = new Book((int)row["bookId"], (string)row["Title"], (string)row["Author"], (string)row["Other"], (decimal)row["Price"]);
 
                 return book;
             }

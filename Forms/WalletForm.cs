@@ -70,30 +70,31 @@ namespace BookReaderApp
 
             borrowBooksGridView.DataSource = allBooks;
             borrowBooksGridView.Columns["BookId"].Visible = false;
+            borrowBooksGridView.Columns["Other"].Visible = false;
 
             var borrowedBooks = WalletService.GetBorrowedBooks(userId);
-            var uniqueBooks = new Dictionary<int, (int, string, string, int)>();
+            var uniqueBooks = new Dictionary<int, (Book, int)>();
 
             foreach (var book in borrowedBooks)
             {
-                var daysRemaining = WalletService.GetDaysRemaining(book.Item1, userId);
+                var daysRemaining = WalletService.GetDaysRemaining(book.BookId, userId);
 
-                if (uniqueBooks.ContainsKey(book.Item1))
+                if (uniqueBooks.ContainsKey(book.BookId))
                 {
-                    if (uniqueBooks[book.Item1].Item4 < daysRemaining)
+                    if (uniqueBooks[book.BookId].Item2 < daysRemaining)
                     {
-                        uniqueBooks[book.Item1] = (book.Item1, book.Item2, book.Item3, daysRemaining);
+                        uniqueBooks[book.BookId] = (book, daysRemaining);
                     }
                 }
                 else
                 {
-                    uniqueBooks.Add(book.Item1, (book.Item1, book.Item2, book.Item3, daysRemaining));
+                    uniqueBooks.Add(book.BookId, (book, daysRemaining));
                 }
             }
 
             foreach (var book in uniqueBooks.Values)
             {
-                object[] row = { book.Item1, book.Item2, book.Item3, WalletService.GetDaysRemaining(book.Item1, userId), BookService.GetBookPrice(book.Item1) };
+                object[] row = { book.Item1.Author, book.Item1.Title, WalletService.GetDaysRemaining(book.Item1.BookId, userId), BookService.GetBookPrice(book.Item1.BookId) };
                 availableBooksGridView.Rows.Add(row);
             }
 
@@ -232,7 +233,7 @@ namespace BookReaderApp
                 var borrowBooks = WalletService.GetBorrowedBooks(userId);
                 foreach(var book in borrowBooks)
                 {
-                    if (book.Item1 == bookId)
+                    if (book.BookId == bookId)
                         return;
                 }
 

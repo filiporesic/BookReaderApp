@@ -39,6 +39,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.borrowBooksGridView = new System.Windows.Forms.DataGridView();
+            this.genreComboBox = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.availableBooksGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.borrowBooksGridView)).BeginInit();
             this.SuspendLayout();
@@ -47,7 +49,7 @@
             // 
             this.WalletButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.WalletButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WalletButton.Location = new System.Drawing.Point(1206, 952);
+            this.WalletButton.Location = new System.Drawing.Point(809, 952);
             this.WalletButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.WalletButton.Name = "WalletButton";
             this.WalletButton.Size = new System.Drawing.Size(173, 65);
@@ -146,7 +148,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(868, 237);
+            this.label1.Location = new System.Drawing.Point(805, 237);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(281, 22);
             this.label1.TabIndex = 35;
@@ -159,7 +161,7 @@
             this.borrowBooksGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.borrowBooksGridView.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.borrowBooksGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.borrowBooksGridView.Location = new System.Drawing.Point(872, 310);
+            this.borrowBooksGridView.Location = new System.Drawing.Point(809, 310);
             this.borrowBooksGridView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.borrowBooksGridView.Name = "borrowBooksGridView";
             this.borrowBooksGridView.ReadOnly = true;
@@ -169,12 +171,33 @@
             this.borrowBooksGridView.Size = new System.Drawing.Size(570, 520);
             this.borrowBooksGridView.TabIndex = 34;
             // 
+            // genreComboBox
+            // 
+            this.genreComboBox.FormattingEnabled = true;
+            this.genreComboBox.Location = new System.Drawing.Point(1162, 952);
+            this.genreComboBox.Name = "genreComboBox";
+            this.genreComboBox.Size = new System.Drawing.Size(217, 28);
+            this.genreComboBox.TabIndex = 36;
+            this.genreComboBox.SelectedIndexChanged += new System.EventHandler(this.genreComboBox_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(1158, 914);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(199, 22);
+            this.label2.TabIndex = 37;
+            this.label2.Text = "Filer books by genre:";
+            // 
             // FrontPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1924, 1199);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.genreComboBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.borrowBooksGridView);
             this.Controls.Add(this.label4);
@@ -204,5 +227,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView borrowBooksGridView;
+        private System.Windows.Forms.ComboBox genreComboBox;
+        private System.Windows.Forms.Label label2;
     }
 }

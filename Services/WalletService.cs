@@ -54,7 +54,8 @@ namespace BookReaderApp
 
             foreach (DataRow row in dt.Rows)
             {
-                books.Add(new Book((int)row["bookId"], (string)row["Title"], (string)row["Author"],(string)row["Other"], (decimal)row["Price"]));
+                Book added = new Book((int)row["bookId"], (string)row["Title"], (string)row["Author"], (string)row["Other"], (decimal)row["Price"]);
+                books.Add(added);
             }
 
             return books;
@@ -94,9 +95,9 @@ namespace BookReaderApp
             return bookPricePairs;
         }
 
-        public static List<Tuple<int, string, string>> GetBorrowedBooks(int userId)
+        public static List<Book> GetBorrowedBooks(int userId)
         {
-            List<Tuple<int, string, string>> books = new List<Tuple<int, string, string>>();
+            List<Book> books = new List<Book>();
 
             string query = "SELECT bookId FROM Transactions WHERE userId = @userId AND current_date < returnDate";
 
@@ -104,10 +105,11 @@ namespace BookReaderApp
             object value = userId;
             var dt = DatabaseService.SelectData(query, name, value);
 
+
+
             foreach (DataRow row in dt.Rows)
             {
-                books.Add(new Tuple<int, string, string>((int)row["bookId"], 
-                    (BookService.GetBookTitleAndAuthor((int)row["bookId"]).Item1), (BookService.GetBookTitleAndAuthor((int)row["bookId"]).Item2)));
+                books.Add(BookService.GetBook((int)row["bookId"]));
             }
 
             return books;

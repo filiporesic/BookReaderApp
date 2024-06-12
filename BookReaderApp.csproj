@@ -207,6 +207,7 @@
       <DependentUpon>BookReaderAppDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Data\Book.cs" />
+    <Compile Include="Data\BookDetails.cs" />
     <Compile Include="Data\Transaction.cs" />
     <Compile Include="Data\User.cs" />
     <Compile Include="Forms\Borrowed.cs">
