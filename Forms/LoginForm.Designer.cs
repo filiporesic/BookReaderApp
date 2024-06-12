@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.usernameTextBox = new System.Windows.Forms.TextBox();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -42,19 +43,19 @@
             // 
             this.usernameTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.usernameTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.usernameTextBox.Location = new System.Drawing.Point(152, 285);
-            this.usernameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.usernameTextBox.Location = new System.Drawing.Point(101, 185);
+            this.usernameTextBox.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.usernameTextBox.Name = "usernameTextBox";
-            this.usernameTextBox.Size = new System.Drawing.Size(298, 26);
+            this.usernameTextBox.Size = new System.Drawing.Size(200, 20);
             this.usernameTextBox.TabIndex = 0;
             // 
             // passwordTextBox
             // 
             this.passwordTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.passwordTextBox.Location = new System.Drawing.Point(152, 445);
-            this.passwordTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.passwordTextBox.Location = new System.Drawing.Point(101, 289);
+            this.passwordTextBox.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.Size = new System.Drawing.Size(298, 26);
+            this.passwordTextBox.Size = new System.Drawing.Size(200, 20);
             this.passwordTextBox.TabIndex = 1;
             // 
             // panel1
@@ -68,10 +69,10 @@
             this.panel1.Controls.Add(this.passwordTextBox);
             this.panel1.Controls.Add(this.usernameTextBox);
             this.panel1.ForeColor = System.Drawing.Color.Salmon;
-            this.panel1.Location = new System.Drawing.Point(292, 215);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel1.Location = new System.Drawing.Point(195, 140);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(587, 922);
+            this.panel1.Size = new System.Drawing.Size(392, 600);
             this.panel1.TabIndex = 2;
             // 
             // linkLabel1
@@ -81,7 +82,8 @@
             this.linkLabel1.Font = new System.Drawing.Font("Cascadia Code", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel1.ForeColor = System.Drawing.Color.Black;
             this.linkLabel1.LinkColor = System.Drawing.Color.Red;
-            this.linkLabel1.Location = new System.Drawing.Point(108, 665);
+            this.linkLabel1.Location = new System.Drawing.Point(72, 432);
+            this.linkLabel1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(425, 39);
             this.linkLabel1.TabIndex = 3;
@@ -96,10 +98,10 @@
             this.loginButton.FlatAppearance.BorderColor = System.Drawing.Color.Tomato;
             this.loginButton.Font = new System.Drawing.Font("Cascadia Code", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loginButton.ForeColor = System.Drawing.Color.Red;
-            this.loginButton.Location = new System.Drawing.Point(220, 549);
-            this.loginButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.loginButton.Location = new System.Drawing.Point(147, 357);
+            this.loginButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(152, 62);
+            this.loginButton.Size = new System.Drawing.Size(101, 40);
             this.loginButton.TabIndex = 2;
             this.loginButton.Text = "Log in";
             this.loginButton.UseVisualStyleBackColor = false;
@@ -111,7 +113,8 @@
             this.passwordLabela.BackColor = System.Drawing.Color.Transparent;
             this.passwordLabela.Font = new System.Drawing.Font("Cascadia Code", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordLabela.ForeColor = System.Drawing.Color.Red;
-            this.passwordLabela.Location = new System.Drawing.Point(222, 374);
+            this.passwordLabela.Location = new System.Drawing.Point(148, 243);
+            this.passwordLabela.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.passwordLabela.Name = "passwordLabela";
             this.passwordLabela.Size = new System.Drawing.Size(153, 39);
             this.passwordLabela.TabIndex = 3;
@@ -123,7 +126,8 @@
             this.usernameLabela.BackColor = System.Drawing.Color.Transparent;
             this.usernameLabela.Font = new System.Drawing.Font("Cascadia Code", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usernameLabela.ForeColor = System.Drawing.Color.Red;
-            this.usernameLabela.Location = new System.Drawing.Point(222, 211);
+            this.usernameLabela.Location = new System.Drawing.Point(148, 137);
+            this.usernameLabela.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.usernameLabela.Name = "usernameLabela";
             this.usernameLabela.Size = new System.Drawing.Size(153, 39);
             this.usernameLabela.TabIndex = 2;
@@ -131,13 +135,16 @@
             // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1668, 1006);
+            this.BackgroundImage = global::BookReaderApp.Properties.Resources.background_login;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(1112, 654);
             this.Controls.Add(this.panel1);
             this.ForeColor = System.Drawing.Color.DarkSalmon;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.Name = "LoginForm";
             this.Text = "Log in";
             this.Load += new System.EventHandler(this.LoginForm_Load);

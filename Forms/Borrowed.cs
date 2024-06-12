@@ -28,6 +28,7 @@ namespace BookReaderApp.Forms
         // sort po zanru i moze birat koju ce citat
         private void Borrowed_Load_1(object sender, EventArgs e)
         {
+            availableBooksGridView.ClearSelection();
             availableBooksGridView.Rows.Clear();
 
             var borrowedBooks = WalletService.GetBorrowedBooks(userId);
@@ -52,7 +53,7 @@ namespace BookReaderApp.Forms
 
             foreach (var book in uniqueBooks.Values)
             {
-                object[] row = { book.Item1.Title, book.Item1.Author, WalletService.GetDaysRemaining(book.Item1.BookId, userId) };
+                object[] row = { book.Item1.BookId, book.Item1.Title, book.Item1.Author, WalletService.GetDaysRemaining(book.Item1.BookId, userId) };
                 availableBooksGridView.Rows.Add(row);
             }
 
@@ -158,8 +159,36 @@ namespace BookReaderApp.Forms
 
                 foreach (var book in uniqueBooks.Values)
                 {
-                    object[] row = { book.Item1.Title, book.Item1.Author, WalletService.GetDaysRemaining(book.Item1.BookId, userId) };
+                    object[] row = { book.Item1.BookId, book.Item1.Title, book.Item1.Author, WalletService.GetDaysRemaining(book.Item1.BookId, userId) };
                     availableBooksGridView.Rows.Add(row);
+                }
+            }
+        }
+
+        private void AvailableBooksGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int row = availableBooksGridView.SelectedCells[0].RowIndex;
+            int bookId = (int)availableBooksGridView.Rows[row].Cells[0].Value;
+
+            string filename = "..\\..\\" + BookService.GetBookLocation(bookId);
+
+            pdfViewer1.LoadFromFile(filename);
+        }
+
+        private void AvailableBooksGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                int bookId = (int)availableBooksGridView.Rows[e.RowIndex].Cells[0].Value;
+                string title = (string)availableBooksGridView.Rows[e.RowIndex].Cells[1].Value;
+                string author = (string)availableBooksGridView.Rows[e.RowIndex].Cells[2].Value;
+                BookDetails details = BookService.GetBookDetails(bookId);
+                using (InfoForm transferForm = new InfoForm(details, author, title))
+                {
+                    if (transferForm.ShowDialog() == DialogResult.OK)
+                    {
+
+                    }
                 }
             }
         }

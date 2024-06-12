@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BookReaderApp
@@ -95,7 +96,14 @@ namespace BookReaderApp
 
             if (dt.Rows.Count > 0)
             {
-                return dt.Rows[0]["Location"].ToString();
+                foreach(DataRow row in dt.Rows)
+                {
+                    if(row["Location"].ToString() != "")
+                    {
+                        return row["Location"].ToString();
+                    }
+                }
+                throw new Exception("No book found with id " + bookId);
             }
             else
             {
@@ -103,6 +111,23 @@ namespace BookReaderApp
             }
         }
 
-        
+        public static BookDetails GetBookDetails(int bookId)
+        {
+            string query = "SELECT Other FROM Books where bookId = @bookId";
+
+            string name = "bookId";
+            object value = bookId;
+            var dt = DatabaseService.SelectData(query, name, value);
+
+            if (dt.Rows.Count > 0)
+            {
+                BookDetails details = JsonSerializer.Deserialize<BookDetails>((string)dt.Rows[0]["other"]);
+                return details;
+            }
+            else
+            {
+                throw new Exception("No book found with id " + bookId);
+            }
+        }
     }
 }

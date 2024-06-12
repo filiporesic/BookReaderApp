@@ -46,33 +46,8 @@ namespace BookReaderApp
 
         private void FrontPageV2_Load(object sender, EventArgs e)
         {
-            availableBooksGridView.Rows.Clear();
-
-            var borrowedBooks = WalletService.GetBorrowedBooks(userId);
-            var uniqueBooks = new Dictionary<int, (Book, int)>();
-
-            foreach (var book in borrowedBooks)
-            {
-                var daysRemaining = WalletService.GetDaysRemaining(book.BookId, userId);
-
-                if (uniqueBooks.ContainsKey(book.BookId))
-                {
-                    if (uniqueBooks[book.BookId].Item2 < daysRemaining)
-                    {
-                        uniqueBooks[book.BookId] = (book, daysRemaining);
-                    }
-                }
-                else
-                {
-                    uniqueBooks.Add(book.BookId, (book, daysRemaining));
-                }
-            }
-
-            foreach (var book in uniqueBooks.Values)
-            {
-                object[] row = { book.Item1.Title, book.Item1.Author, WalletService.GetDaysRemaining(book.Item1.BookId, userId) };
-                availableBooksGridView.Rows.Add(row);
-            }
+            decimal amount = WalletService.GetBalance(userId);
+            walletBalance.Text = "Wallet balace: " + amount.ToString();
 
             var allBooks = WalletService.GetBooks();
 
@@ -117,33 +92,6 @@ namespace BookReaderApp
             var selectedGenre = genreComboBox.SelectedItem.ToString();
             if (selectedGenre == "All")
             {
-                availableBooksGridView.Rows.Clear();
-
-                var borrowedBooks = WalletService.GetBorrowedBooks(userId);
-                var uniqueBooks = new Dictionary<int, (Book, int)>();
-
-                foreach (var book in borrowedBooks)
-                {
-                    var daysRemaining = WalletService.GetDaysRemaining(book.BookId, userId);
-
-                    if (uniqueBooks.ContainsKey(book.BookId))
-                    {
-                        if (uniqueBooks[book.BookId].Item2 < daysRemaining)
-                        {
-                            uniqueBooks[book.BookId] = (book, daysRemaining);
-                        }
-                    }
-                    else
-                    {
-                        uniqueBooks.Add(book.BookId, (book, daysRemaining));
-                    }
-                }
-
-                foreach (var book in uniqueBooks.Values)
-                {
-                    object[] row = { book.Item1.Title, book.Item1.Author, WalletService.GetDaysRemaining(book.Item1.BookId, userId) };
-                    availableBooksGridView.Rows.Add(row);
-                }
 
                 var allBooks = WalletService.GetBooks();
 
@@ -162,43 +110,64 @@ namespace BookReaderApp
             }
             else
             {
-                availableBooksGridView.Rows.Clear();
-
-                var borrowedBooks = WalletService.GetBorrowedBooks(userId);
-                var uniqueBooks = new Dictionary<int, (Book, int)>();
-
-                foreach (var book in borrowedBooks)
-                {
-                    var daysRemaining = WalletService.GetDaysRemaining(book.BookId, userId);
-
-                    if (uniqueBooks.ContainsKey(book.BookId))
-                    {
-                        if (uniqueBooks[book.BookId].Item2 < daysRemaining && book.Other.Genre == selectedGenre)
-                        {
-                            uniqueBooks[book.BookId] = (book, daysRemaining);
-                        }
-                    }
-                    else
-                    {
-                        uniqueBooks.Add(book.BookId, (book, daysRemaining));
-                    }
-                }
-
-                foreach (var book in uniqueBooks.Values)
-                {
-                    object[] row = { book.Item1.Title, book.Item1.Author, WalletService.GetDaysRemaining(book.Item1.BookId, userId) };
-                    if (book.Item1.Other.Genre == selectedGenre)
-                    {
-                        availableBooksGridView.Rows.Add(row);
-                    }
-                }
-
                 var allBooks = WalletService.GetBooks();
                 List<Book> filterbooks = allBooks.Where(x => x.Other.Genre == selectedGenre).ToList();
 
                 borrowBooksGridView.DataSource = filterbooks;
                 borrowBooksGridView.Columns["BookId"].Visible = false;
                 borrowBooksGridView.Columns["Other"].Visible = false;
+            }
+        }
+
+        private void BorrowBooksGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                decimal price = (decimal)borrowBooksGridView.Rows[e.RowIndex].Cells[4].Value;
+                costLabel.Text = "Cost: " + price.ToString();
+            }
+        }
+
+        private void BorrowButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int row = borrowBooksGridView.SelectedCells[0].RowIndex;
+                decimal price = (decimal)borrowBooksGridView.Rows[row].Cells[4].Value;
+                int bookId = (int)borrowBooksGridView.Rows[row].Cells[0].Value;
+
+                var borrowBooks = WalletService.GetBorrowedBooks(userId);
+                foreach (var book in borrowBooks)
+                {
+                    if (book.BookId == bookId)
+                        return;
+                }
+
+                if (WalletService.GetBalance(userId) >= price)
+                {
+                    DateTime returnDate = DateTime.Now.Date.AddMonths(1);
+                    WalletService.UpdateWallet(userId, WalletService.GetBalance(userId) - price);
+                    WalletService.CreateTransaction(bookId, userId, price, returnDate);
+                    FrontPageV2_Load(sender, e);
+                }
+            }
+            catch { }
+        }
+
+        private void BorrowBooksGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                string title = (string)borrowBooksGridView.Rows[e.RowIndex].Cells[1].Value;
+                string author = (string)borrowBooksGridView.Rows[e.RowIndex].Cells[2].Value;
+                BookDetails other = (BookDetails)borrowBooksGridView.Rows[e.RowIndex].Cells[3].Value;
+                using (InfoForm transferForm = new InfoForm(other, author, title))
+                {
+                    if (transferForm.ShowDialog() == DialogResult.OK)
+                    {
+                        
+                    }
+                }
             }
         }
     }

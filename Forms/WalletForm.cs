@@ -223,7 +223,7 @@ namespace BookReaderApp
             catch { }
         }
 
-        private void BorrowBooksGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void BorrowBooksGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -280,7 +280,7 @@ namespace BookReaderApp
             }
         }
 
-        private void availableBooksGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void availableBooksGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
