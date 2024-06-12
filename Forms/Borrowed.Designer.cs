@@ -29,16 +29,14 @@
         private void InitializeComponent()
         {
             this.availableBooksGridView = new System.Windows.Forms.DataGridView();
-            this.BookId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.remaining = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FrontPageButton = new System.Windows.Forms.Button();
             this.WalletButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.genreComboBox = new System.Windows.Forms.ComboBox();
+            this.BookTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.remaining = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.availableBooksGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,11 +50,9 @@
             this.availableBooksGridView.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.availableBooksGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.availableBooksGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.BookId,
             this.BookTitle,
             this.BookAuthor,
-            this.remaining,
-            this.cost});
+            this.remaining});
             this.availableBooksGridView.Location = new System.Drawing.Point(647, 195);
             this.availableBooksGridView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.availableBooksGridView.Name = "availableBooksGridView";
@@ -66,43 +62,6 @@
             this.availableBooksGridView.RowTemplate.Height = 28;
             this.availableBooksGridView.Size = new System.Drawing.Size(570, 520);
             this.availableBooksGridView.TabIndex = 15;
-            // 
-            // BookId
-            // 
-            this.BookId.HeaderText = "BookId";
-            this.BookId.MinimumWidth = 8;
-            this.BookId.Name = "BookId";
-            this.BookId.ReadOnly = true;
-            this.BookId.Visible = false;
-            // 
-            // BookTitle
-            // 
-            this.BookTitle.HeaderText = "Title";
-            this.BookTitle.MinimumWidth = 8;
-            this.BookTitle.Name = "BookTitle";
-            this.BookTitle.ReadOnly = true;
-            // 
-            // BookAuthor
-            // 
-            this.BookAuthor.HeaderText = "Author";
-            this.BookAuthor.MinimumWidth = 8;
-            this.BookAuthor.Name = "BookAuthor";
-            this.BookAuthor.ReadOnly = true;
-            // 
-            // remaining
-            // 
-            this.remaining.HeaderText = "Days Remaining";
-            this.remaining.MinimumWidth = 8;
-            this.remaining.Name = "remaining";
-            this.remaining.ReadOnly = true;
-            // 
-            // cost
-            // 
-            this.cost.HeaderText = "Price";
-            this.cost.MinimumWidth = 8;
-            this.cost.Name = "cost";
-            this.cost.ReadOnly = true;
-            this.cost.Visible = false;
             // 
             // FrontPageButton
             // 
@@ -160,6 +119,27 @@
             this.genreComboBox.TabIndex = 38;
             this.genreComboBox.SelectedIndexChanged += new System.EventHandler(this.genreComboBox_SelectedIndexChanged);
             // 
+            // BookTitle
+            // 
+            this.BookTitle.HeaderText = "Title";
+            this.BookTitle.MinimumWidth = 8;
+            this.BookTitle.Name = "BookTitle";
+            this.BookTitle.ReadOnly = true;
+            // 
+            // BookAuthor
+            // 
+            this.BookAuthor.HeaderText = "Author";
+            this.BookAuthor.MinimumWidth = 8;
+            this.BookAuthor.Name = "BookAuthor";
+            this.BookAuthor.ReadOnly = true;
+            // 
+            // remaining
+            // 
+            this.remaining.HeaderText = "Days Remaining";
+            this.remaining.MinimumWidth = 8;
+            this.remaining.Name = "remaining";
+            this.remaining.ReadOnly = true;
+            // 
             // Borrowed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -184,15 +164,13 @@
         #endregion
 
         private System.Windows.Forms.DataGridView availableBooksGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BookId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BookTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BookAuthor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn remaining;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cost;
         private System.Windows.Forms.Button FrontPageButton;
         private System.Windows.Forms.Button WalletButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox genreComboBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookAuthor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn remaining;
     }
 }

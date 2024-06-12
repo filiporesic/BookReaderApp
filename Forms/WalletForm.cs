@@ -72,10 +72,10 @@ namespace BookReaderApp
             borrowBooksGridView.Columns["BookId"].Visible = false;
             borrowBooksGridView.Columns["Other"].Visible = false;
 
-            var borrowedBooks = WalletService.GetBorrowedBooks(userId);
+            List<Book> borrowedBooks = WalletService.GetBorrowedBooks(userId);
             var uniqueBooks = new Dictionary<int, (Book, int)>();
 
-            foreach (var book in borrowedBooks)
+            foreach (Book book in borrowedBooks)
             {
                 var daysRemaining = WalletService.GetDaysRemaining(book.BookId, userId);
 
@@ -94,7 +94,8 @@ namespace BookReaderApp
 
             foreach (var book in uniqueBooks.Values)
             {
-                object[] row = { book.Item1.Author, book.Item1.Title, WalletService.GetDaysRemaining(book.Item1.BookId, userId), BookService.GetBookPrice(book.Item1.BookId) };
+                Console.WriteLine(book.Item1.Title);
+                object[] row = {book.Item1.BookId, book.Item1.Title, book.Item1.Author, WalletService.GetDaysRemaining(book.Item1.BookId, userId), book.Item1.Price};
                 availableBooksGridView.Rows.Add(row);
             }
 
@@ -134,14 +135,14 @@ namespace BookReaderApp
             Close();
         }
 
-        private void HandleCellClick(object cellValue)
-        {
-            string filename = BookService.GetBookLocation((int)cellValue);
+        //private void HandleCellClick(object cellValue)
+        //{
+        //    string filename = BookService.GetBookLocation((int)cellValue);
 
-            ReaderForm reader = new ReaderForm("..\\.." + filename);
+        //    ReaderForm reader = new ReaderForm("..\\.." + filename);
 
-            reader.ShowDialog();
-        }
+        //    reader.ShowDialog();
+        //}
 
         private void ExtendButton_Click(object sender, EventArgs e)
         {
@@ -206,7 +207,7 @@ namespace BookReaderApp
             try
             {
                 int row = availableBooksGridView.SelectedCells[0].RowIndex;
-                decimal amount = (decimal)availableBooksGridView.Rows[row].Cells[4].Value;
+                decimal amount = (decimal)availableBooksGridView.Rows[row].Cells[3].Value;
 
                 if (extendComboBox.SelectedIndex == 0)
                 {
@@ -226,7 +227,7 @@ namespace BookReaderApp
         {
             if (e.RowIndex >= 0)
             {
-                decimal price = (decimal)borrowBooksGridView.Rows[e.RowIndex].Cells[3].Value;
+                decimal price = (decimal)borrowBooksGridView.Rows[e.RowIndex].Cells[4].Value;
                 costLabel.Text = "Cost: " + price.ToString();
             }
         }
@@ -276,6 +277,15 @@ namespace BookReaderApp
                 borrowBooksGridView.DataSource = filterbooks;
                 borrowBooksGridView.Columns["BookId"].Visible = false;
                 borrowBooksGridView.Columns["Other"].Visible = false;
+            }
+        }
+
+        private void availableBooksGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                decimal price = (decimal)borrowBooksGridView.Rows[e.RowIndex].Cells[4].Value;
+                extendCostLabel.Text = "Cost: " + price.ToString();
             }
         }
     }

@@ -70,7 +70,7 @@ namespace BookReaderApp
 
             foreach (var book in uniqueBooks.Values)
             {
-                object[] row = { book.Item1.Author, book.Item1.Title, WalletService.GetDaysRemaining(book.Item1.BookId, userId), BookService.GetBookPrice(book.Item1.BookId) };
+                object[] row = { book.Item1.Title, book.Item1.Author, WalletService.GetDaysRemaining(book.Item1.BookId, userId) };
                 availableBooksGridView.Rows.Add(row);
             }
 
@@ -141,7 +141,7 @@ namespace BookReaderApp
 
                 foreach (var book in uniqueBooks.Values)
                 {
-                    object[] row = { book.Item1.Author, book.Item1.Title, WalletService.GetDaysRemaining(book.Item1.BookId, userId), BookService.GetBookPrice(book.Item1.BookId) };
+                    object[] row = { book.Item1.Title, book.Item1.Author, WalletService.GetDaysRemaining(book.Item1.BookId, userId) };
                     availableBooksGridView.Rows.Add(row);
                 }
 
@@ -186,7 +186,7 @@ namespace BookReaderApp
 
                 foreach (var book in uniqueBooks.Values)
                 {
-                    object[] row = { book.Item1.Author, book.Item1.Title, WalletService.GetDaysRemaining(book.Item1.BookId, userId), BookService.GetBookPrice(book.Item1.BookId) };
+                    object[] row = { book.Item1.Title, book.Item1.Author, WalletService.GetDaysRemaining(book.Item1.BookId, userId) };
                     if (book.Item1.Other.Genre == selectedGenre)
                     {
                         availableBooksGridView.Rows.Add(row);

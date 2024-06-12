@@ -21,7 +21,6 @@ namespace BookReaderApp
             {
                 DataRow row = dt.Rows[0];
                 Book book = new Book((int)row["bookId"], (string)row["Title"], (string)row["Author"], (string)row["Other"], (decimal)row["Price"]);
-
                 return book;
             }
             else

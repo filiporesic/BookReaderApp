@@ -52,14 +52,14 @@ namespace BookReaderApp.Forms
 
             foreach (var book in uniqueBooks.Values)
             {
-                object[] row = { book.Item1.Author, book.Item1.Title, WalletService.GetDaysRemaining(book.Item1.BookId, userId), BookService.GetBookPrice(book.Item1.BookId) };
+                object[] row = { book.Item1.Title, book.Item1.Author, WalletService.GetDaysRemaining(book.Item1.BookId, userId) };
                 availableBooksGridView.Rows.Add(row);
             }
 
-            var allBooks = WalletService.GetBooks();
+            List<Book> allBooks = WalletService.GetBooks();
 
             if (!genreComboBox.Items.Contains("All")) genreComboBox.Items.Add("All");
-            foreach (var book in allBooks)
+            foreach (Book book in allBooks)
             {
                 if (book.Other.Genre != null && !genreComboBox.Items.Contains(book.Other.Genre))
                 {
@@ -113,8 +113,20 @@ namespace BookReaderApp.Forms
 
                 foreach (var book in uniqueBooks.Values)
                 {
-                    object[] row = { book.Item1.Author, book.Item1.Title, WalletService.GetDaysRemaining(book.Item1.BookId, userId), BookService.GetBookPrice(book.Item1.BookId) };
+                    object[] row = { book.Item1.Title, book.Item1.Author, WalletService.GetDaysRemaining(book.Item1.BookId, userId) };
                     availableBooksGridView.Rows.Add(row);
+                }
+
+
+                List<Book> allBooks = WalletService.GetBooks();
+
+                if (!genreComboBox.Items.Contains("All")) genreComboBox.Items.Add("All");
+                foreach (Book book in allBooks)
+                {
+                    if (book.Other.Genre != null && !genreComboBox.Items.Contains(book.Other.Genre))
+                    {
+                        genreComboBox.Items.Add(book.Other.Genre);
+                    }
                 }
             }
             else
@@ -130,24 +142,24 @@ namespace BookReaderApp.Forms
 
                     if (uniqueBooks.ContainsKey(book.BookId))
                     {
-                        if (uniqueBooks[book.BookId].Item2 < daysRemaining && book.Other.Genre == selectedGenre)
+                        if (uniqueBooks[book.BookId].Item2 < daysRemaining)
                         {
                             uniqueBooks[book.BookId] = (book, daysRemaining);
                         }
                     }
                     else
                     {
-                        uniqueBooks.Add(book.BookId, (book, daysRemaining));
+                        if (book.Other.Genre == selectedGenre)
+                        {
+                            uniqueBooks.Add(book.BookId, (book, daysRemaining));
+                        }
                     }
                 }
 
                 foreach (var book in uniqueBooks.Values)
                 {
-                    object[] row = { book.Item1.Author, book.Item1.Title, WalletService.GetDaysRemaining(book.Item1.BookId, userId), BookService.GetBookPrice(book.Item1.BookId) };
-                    if (book.Item1.Other.Genre == selectedGenre)
-                    {
-                        availableBooksGridView.Rows.Add(row);
-                    }
+                    object[] row = { book.Item1.Title, book.Item1.Author, WalletService.GetDaysRemaining(book.Item1.BookId, userId) };
+                    availableBooksGridView.Rows.Add(row);
                 }
             }
         }
